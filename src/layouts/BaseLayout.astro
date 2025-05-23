@@ -2,6 +2,7 @@
 // Layout principal para todas las páginas
 // Astro 5 usa ViewTransitions para navegación suave
 import  SpeedInsights  from "@vercel/speed-insights/astro";
+import Analytics from '@vercel/analytics/astro'
 import '../styles/global.css';
 
 export interface Props {
@@ -73,5 +74,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         document.documentElement.classList.remove('dark');
       }
     </script>
+    <SpeedInsights />
+    <Analytics />
   </body>
 </html>
