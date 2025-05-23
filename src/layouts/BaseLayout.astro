@@ -1,7 +1,7 @@
 ---
 // Layout principal para todas las páginas
 // Astro 5 usa ViewTransitions para navegación suave
-import  SpeedInsights  from "@vercel/speed-insights/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from '@vercel/analytics/astro'
 import '../styles/global.css';
 
@@ -50,31 +50,116 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="twitter:description" content={descripcion} />
     <meta property="twitter:image" content={imagen} />
     
-    
     <!-- Preconnect para optimizar carga de fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   
-  <body class="antialiased bg-white text-gray-900">
+  <body class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
     <!-- Skip to content para accesibilidad -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded">
       Saltar al contenido principal
     </a>
     
+    <!-- Header con logo y toggle -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+      <div class="container-custom">
+        <div class="flex items-center justify-between h-16">
+          <!-- Logo con cambio dinámico -->
+          <a href="/" class="flex items-center">
+            <!-- Logo para modo claro -->
+            <img 
+              src="/matamares_negro.png" 
+              alt="Matamares Logo" 
+              class="h-10 w-auto block dark:hidden transition-opacity duration-300"
+            />
+            <!-- Logo para modo oscuro -->
+            <img 
+              src="/matamares_blanco.png" 
+              alt="Matamares Logo" 
+              class="h-10 w-auto hidden dark:block transition-opacity duration-300"
+            />
+          </a>
+          
+          <!-- Toggle de modo oscuro -->
+          <button
+            id="theme-toggle"
+            type="button"
+            class="relative inline-flex items-center justify-center w-12 h-12 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700 transition-all duration-200"
+            aria-label="Toggle dark mode"
+          >
+            <!-- Icono de sol (modo claro) -->
+            <svg class="absolute w-6 h-6 transition-all duration-300 scale-100 rotate-0 dark:scale-0 dark:rotate-90" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+            </svg>
+            
+            <!-- Icono de luna (modo oscuro) -->
+            <svg class="absolute w-6 h-6 transition-all duration-300 scale-0 -rotate-90 dark:scale-100 dark:rotate-0" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Espaciador para el header fijo -->
+    <div class="h-16"></div>
+    
     <!-- Slot principal donde va el contenido de cada página -->
-    <slot />
+    <main id="main-content">
+      <slot />
+    </main>
     
     <!-- Scripts globales -->
     <script>
-      // Detectar preferencia de tema del usuario (para futuras implementaciones)
-      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      // Detectar preferencia de tema del usuario
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+
+      if (theme === 'dark') {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
       }
+
+      // Toggle de tema
+      document.addEventListener('DOMContentLoaded', () => {
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        themeToggle?.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.contains('dark');
+          
+          if (isDark) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+          }
+        });
+      });
     </script>
+    
     <SpeedInsights />
     <Analytics />
   </body>
 </html>
+
+<style>
+  /* Animación suave para el header al hacer scroll */
+  header {
+    transition: all 0.3s ease;
+  }
+  
+  /* Opcional: Reducir el tamaño del header al hacer scroll */
+  header.scrolled {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+</style>
