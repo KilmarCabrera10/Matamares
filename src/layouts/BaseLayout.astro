@@ -1,0 +1,79 @@
+---
+// Layout principal para todas las páginas
+// Astro 5 usa ViewTransitions para navegación suave
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
+
+export interface Props {
+  titulo: string;
+  descripcion: string;
+  imagen?: string;
+  palabrasClave?: string;
+}
+
+const { 
+  titulo, 
+  descripcion,
+  imagen = '/og-image.jpg',
+  palabrasClave = 'página web gratis, diseño web profesional, landing page, crear sitio web'
+} = Astro.props;
+
+// URL canónica para SEO
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- SEO Meta Tags -->
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <meta name="keywords" content={palabrasClave} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:image" content={imagen} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={titulo} />
+    <meta property="twitter:description" content={descripcion} />
+    <meta property="twitter:image" content={imagen} />
+    
+    <!-- View Transitions de Astro 5 para navegación suave -->
+    <ViewTransitions />
+    
+    <!-- Preconnect para optimizar carga de fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  
+  <body class="antialiased bg-white text-gray-900">
+    <!-- Skip to content para accesibilidad -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded">
+      Saltar al contenido principal
+    </a>
+    
+    <!-- Slot principal donde va el contenido de cada página -->
+    <slot />
+    
+    <!-- Scripts globales -->
+    <script>
+      // Detectar preferencia de tema del usuario (para futuras implementaciones)
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Crea tu Página Web Gratis - Sin Costos Ocultos | TuMarca";
+const pageDescription = "Obtén tu página web profesional completamente gratis. Sin letra pequeña, sin tarjeta de crédito. Diseño moderno y optimizado para convertir visitantes en clientes.";
+---
+
+<BaseLayout titulo={pageTitle} descripcion={pageDescription}>
+  <main id="main-content">
+    <Hero 
+      titulo="Tu Página Web Profesional, Completamente Gratis"
+      subtitulo="Creamos tu landing page sin costo. Sin letra pequeña, sin pagos ocultos. Solo necesitas tu idea y nosotros hacemos el resto."
+      textoCTA="Obtener Mi Página Gratis"
+      urlCTA="#formulario"
+    />
+    
+    <Features />
+    
+    <Testimonials />
+    
+    <FAQ />
+    
+    <ContactForm />
+  </main>
+  
+  <Footer />
+</BaseLayout>

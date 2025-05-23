@@ -1,0 +1,177 @@
+---
+// Componente FAQ - Resuelve objeciones y genera confianza
+export interface Props {
+  titulo?: string;
+  subtitulo?: string;
+  preguntas?: Array<{
+    pregunta: string;
+    respuesta: string;
+  }>;
+}
+
+const {
+  titulo = "Preguntas Frecuentes",
+  subtitulo = "Todo lo que necesitas saber sobre tu página web gratis",
+  preguntas = [
+    {
+      pregunta: "¿Es realmente gratis? ¿No hay costos ocultos?",
+      respuesta: "Sí, es 100% gratis. No pedimos tarjeta de crédito, no hay períodos de prueba, ni costos ocultos. Creemos que toda empresa merece tener presencia en línea sin barreras económicas."
+    },
+    {
+      pregunta: "¿Qué incluye la página web gratis?",
+      respuesta: "Incluye diseño profesional responsive, hosting seguro, certificado SSL, formulario de contacto, integración con redes sociales, optimización SEO básica y hasta 5 secciones personalizadas."
+    },
+    {
+      pregunta: "¿Cuánto tiempo tarda en estar lista?",
+      respuesta: "Tu página estará lista en 24-48 horas hábiles después de enviarnos la información. Te enviaremos un enlace de vista previa antes de publicarla."
+    },
+    {
+      pregunta: "¿Puedo modificar el contenido después?",
+      respuesta: "¡Por supuesto! Te damos acceso a un panel simple donde puedes actualizar textos, imágenes y información de contacto. También ofrecemos soporte gratuito por 30 días."
+    },
+    {
+      pregunta: "¿Necesito conocimientos técnicos?",
+      respuesta: "No necesitas saber nada de programación o diseño. Nosotros nos encargamos de todo el proceso técnico. Solo necesitas decirnos qué quieres comunicar."
+    },
+    {
+      pregunta: "¿Cómo se mantienen ustedes si es gratis?",
+      respuesta: "Ofrecemos servicios premium opcionales como tiendas en línea, sistemas de reservas, y marketing digital. Pero la página básica siempre será gratis, sin obligación de contratar nada más."
+    }
+  ]
+} = Astro.props;
+---
+
+<section id="faq" class="py-20 bg-white">
+  <div class="container-custom">
+    <!-- Encabezado -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+        {titulo}
+      </h2>
+      <p class="text-lg text-gray-600">
+        {subtitulo}
+      </p>
+    </div>
+    
+    <!-- Acordeón de preguntas -->
+    <div class="max-w-3xl mx-auto space-y-4">
+      {preguntas.map((item, index) => (
+        <div 
+          class="faq-item border border-gray-200 rounded-lg overflow-hidden hover:border-blue-300 transition-colors"
+          data-index={index}
+        >
+          <!-- Pregunta -->
+          <button
+            class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-gray-50 transition-colors"
+            aria-expanded="false"
+            aria-controls={`faq-answer-${index}`}
+          >
+            <span class="font-semibold text-gray-900 pr-8">
+              {item.pregunta}
+            </span>
+            <svg 
+              class="faq-icon w-5 h-5 text-blue-600 flex-shrink-0 transition-transform duration-200" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          
+          <!-- Respuesta -->
+          <div 
+            id={`faq-answer-${index}`}
+            class="faq-content hidden"
+          >
+            <div class="px-6 pb-4 text-gray-600 leading-relaxed">
+              {item.respuesta}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- CTA final -->
+    <div class="text-center mt-12">
+      <p class="text-gray-600 mb-6">
+        ¿Tienes más preguntas? Estamos aquí para ayudarte
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="#formulario"
+          class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Solicitar Mi Página Gratis
+        </a>
+        <a 
+          href="mailto:info@tupagina.com"
+          class="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-gray-400 transition-colors"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Contactar por Email
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Funcionalidad del acordeón
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const trigger = item.querySelector('.faq-trigger') as HTMLButtonElement;
+      const content = item.querySelector('.faq-content') as HTMLElement;
+      const icon = item.querySelector('.faq-icon') as SVGElement;
+      
+      trigger?.addEventListener('click', () => {
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+        
+        // Cerrar todos los demás
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            const otherTrigger = otherItem.querySelector('.faq-trigger') as HTMLButtonElement;
+            const otherContent = otherItem.querySelector('.faq-content') as HTMLElement;
+            const otherIcon = otherItem.querySelector('.faq-icon') as SVGElement;
+            
+            otherTrigger?.setAttribute('aria-expanded', 'false');
+            otherContent?.classList.add('hidden');
+            otherIcon?.classList.remove('rotate-180');
+          }
+        });
+        
+        // Toggle el actual
+        trigger.setAttribute('aria-expanded', (!isOpen).toString());
+        content?.classList.toggle('hidden');
+        icon?.classList.toggle('rotate-180');
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Transición suave para el icono */
+  .faq-icon {
+    transition: transform 0.2s ease;
+  }
+  
+  /* Animación de apertura */
+  .faq-content {
+    animation: slideDown 0.2s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

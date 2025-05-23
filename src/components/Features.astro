@@ -1,0 +1,113 @@
+---
+// Componente Features - Muestra los beneficios clave del servicio
+export interface Props {
+  titulo?: string;
+  subtitulo?: string;
+  features?: Array<{
+    icono: string;
+    titulo: string;
+    descripcion: string;
+  }>;
+}
+
+const {
+  titulo = "¿Por Qué Elegir Nuestro Servicio?",
+  subtitulo = "Creamos páginas web que convierten visitantes en clientes, sin que te cueste un centavo",
+  features = [
+    {
+      icono: "🚀",
+      titulo: "Lanzamiento Rápido",
+      descripcion: "Tu página estará lista en menos de 48 horas. Sin complicaciones técnicas ni largos procesos."
+    },
+    {
+      icono: "💰",
+      titulo: "100% Gratis",
+      descripcion: "Sin costos ocultos, sin planes premium obligatorios. Tu página web profesional sin pagar nada."
+    },
+    {
+      icono: "📱",
+      titulo: "Diseño Responsive",
+      descripcion: "Perfecta en móviles, tablets y computadoras. Tus clientes te encontrarán desde cualquier dispositivo."
+    },
+    {
+      icono: "🎨",
+      titulo: "Diseño Profesional",
+      descripcion: "Templates modernos y personalizables que reflejan la calidad de tu negocio."
+    },
+    {
+      icono: "📈",
+      titulo: "Optimizada para SEO",
+      descripcion: "Aparece en Google desde el primer día. Estructura optimizada para buscadores."
+    },
+    {
+      icono: "🛡️",
+      titulo: "Hosting Incluido",
+      descripcion: "No te preocupes por servidores ni dominios. Nosotros nos encargamos de todo."
+    }
+  ]
+} = Astro.props;
+---
+
+<section id="features" class="py-20 bg-white">
+  <div class="container-custom">
+    <!-- Encabezado de la sección -->
+    <div class="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+        {titulo}
+      </h2>
+      <p class="text-lg text-gray-600">
+        {subtitulo}
+      </p>
+    </div>
+    
+    <!-- Grid de features -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map((feature, index) => (
+        <div 
+          class="group relative p-6 bg-white rounded-xl border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all duration-300 animate-fade-in"
+          style={`animation-delay: ${index * 100}ms`}
+        >
+          <!-- Efecto de hover en el fondo -->
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+          
+          <!-- Contenido -->
+          <div class="relative">
+            <!-- Icono -->
+            <div class="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+              {feature.icono}
+            </div>
+            
+            <!-- Título -->
+            <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+              {feature.titulo}
+            </h3>
+            
+            <!-- Descripción -->
+            <p class="text-gray-600 leading-relaxed">
+              {feature.descripcion}
+            </p>
+          </div>
+          
+          <!-- Indicador visual de hover -->
+          <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-b-xl"></div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- CTA secundario -->
+    <div class="text-center mt-12">
+      <p class="text-gray-600 mb-4">
+        ¿Listo para tener tu página web profesional?
+      </p>
+      <a 
+        href="#formulario" 
+        class="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+      >
+        Comenzar ahora
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

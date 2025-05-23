@@ -1,0 +1,31 @@
+# Proyecto: Landing Page Generator con Astro 5
+
+## Stack Tecnológico
+- Astro 5.x
+- Tailwind CSS 4.x 
+- JavaScript (no TypeScript)
+- pnpm como gestor de paquetes
+
+## Objetivo del Proyecto
+Crear landing pages para ofrecer servicios de páginas web gratuitas, optimizadas para conversión.
+
+## Principios de Código
+1. Componentes 100% reutilizables y parametrizables
+2. Props con valores por defecto profesionales
+3. Comentarios en español explicando el "por qué"
+4. Mobile-first y accesible
+5. Optimizado para conversión
+
+## Estructura de Componentes Astro
+```astro
+---
+// Definir props con valores por defecto
+const { 
+  prop1 = "valor por defecto",
+  prop2 = true 
+} = Astro.props;
+
+// Lógica del componente aquí
+---
+
+<!-- HTML con Tailwind CSS 4 -->
