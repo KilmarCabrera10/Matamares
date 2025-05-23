@@ -1,7 +1,7 @@
 ---
 // Layout principal para todas las páginas
 // Astro 5 usa ViewTransitions para navegación suave
-import { ViewTransitions } from 'astro:transitions';
+import  SpeedInsights  from "@vercel/speed-insights/astro";
 import '../styles/global.css';
 
 export interface Props {
@@ -49,8 +49,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="twitter:description" content={descripcion} />
     <meta property="twitter:image" content={imagen} />
     
-    <!-- View Transitions de Astro 5 para navegación suave -->
-    <ViewTransitions />
     
     <!-- Preconnect para optimizar carga de fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
