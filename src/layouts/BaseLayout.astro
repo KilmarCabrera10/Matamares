@@ -53,6 +53,39 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Preconnect para optimizar carga de fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Estilos para animación de pulso -->
+    <style>
+      @keyframes pulse-theme {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+        }
+      }
+      
+      @keyframes pulse-theme-dark {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(147, 197, 253, 0.7);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 0 10px rgba(147, 197, 253, 0);
+        }
+      }
+      
+      .pulse-animation {
+        animation: pulse-theme 2s ease-in-out;
+      }
+      
+      .dark .pulse-animation {
+        animation: pulse-theme-dark 2s ease-in-out;
+      }
+    </style>
   </head>
   
   <body class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
@@ -81,22 +114,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       </div>
     </div>
     
-    <!-- Toggle flotante independiente con tamaño responsive -->
+    <!-- Toggle flotante - Posición inicial inferior derecha con bordes mejorados -->
     <button
       id="theme-toggle"
       type="button"
-      class="fixed top-4 sm:top-6 right-4 sm:right-6 z-50 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-md border border-gray-200/20 dark:border-gray-700/20 text-gray-700 dark:text-gray-300 hover:bg-white/20 dark:hover:bg-black/20 focus:outline-none focus:ring-2 focus:ring-white/50 dark:focus:ring-black/50 transition-all duration-200 shadow-lg hover:shadow-xl"
+      class="fixed bottom-6 right-6 z-50 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-md border-2 border-gray-300/60 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-700/90 hover:border-gray-400/80 dark:hover:border-gray-500/90 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 transition-all duration-200 shadow-lg hover:shadow-xl cursor-grab active:cursor-grabbing select-none touch-none"
       aria-label="Toggle dark mode"
     >
       <!-- Icono de sol (modo claro) -->
-      <svg class="absolute w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 scale-100 rotate-0 dark:scale-0 dark:rotate-90" fill="currentColor" viewBox="0 0 20 20">
+      <svg class="absolute w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 scale-100 rotate-0 dark:scale-0 dark:rotate-90 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
         <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
       </svg>
       
-      <!-- Icono de luna (modo oscuro) -->
+       <!-- Icono de luna (modo oscuro) -->
       <svg class="absolute w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 scale-0 -rotate-90 dark:scale-100 dark:rotate-0" fill="currentColor" viewBox="0 0 20 20">
         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
-      </svg>
+       </svg>
     </button>
     
     <!-- Slot principal donde va el contenido de cada página -->
@@ -123,19 +156,122 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         document.documentElement.classList.remove('dark');
       }
 
-      // Toggle de tema
+      // Toggle de tema con funcionalidad de arrastre
       document.addEventListener('DOMContentLoaded', () => {
         const themeToggle = document.getElementById('theme-toggle');
-        
-        themeToggle?.addEventListener('click', () => {
-          const isDark = document.documentElement.classList.contains('dark');
+        let isDragging = false;
+        let dragStartTime = 0;
+        let startX = 0;
+        let startY = 0;
+
+        // Limpiar posición guardada al cargar la página para que siempre inicie en la posición por defecto
+        localStorage.removeItem('toggle-position');
+
+        // Animación de pulso después de 2 segundos
+        setTimeout(() => {
+          themeToggle.classList.add('pulse-animation');
           
-          if (isDark) {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-          } else {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
+          // Remover la clase después de que termine la animación
+          setTimeout(() => {
+            themeToggle.classList.remove('pulse-animation');
+          }, 2000);
+        }, 2000);
+
+        // Función para resetear a posición inicial (inferior derecha)
+        function resetToInitialPosition() {
+          themeToggle.style.left = 'auto';
+          themeToggle.style.top = 'auto';
+          themeToggle.style.right = '24px';
+          themeToggle.style.bottom = '24px';
+        }
+
+        // Siempre iniciar en la posición por defecto
+        resetToInitialPosition();
+
+        // Función para manejar el inicio del arrastre
+        function handleStart(e) {
+          isDragging = true;
+          dragStartTime = Date.now();
+          
+          const rect = themeToggle.getBoundingClientRect();
+          const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+          const clientY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
+          
+          startX = clientX - rect.left;
+          startY = clientY - rect.top;
+          
+          themeToggle.style.transition = 'none';
+          e.preventDefault();
+        }
+
+        // Función para manejar el movimiento
+        function handleMove(e) {
+          if (!isDragging) return;
+          
+          const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+          const clientY = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
+          
+          let newX = clientX - startX;
+          let newY = clientY - startY;
+          
+          // Limitar el movimiento dentro de la ventana
+          const toggleWidth = themeToggle.offsetWidth;
+          const toggleHeight = themeToggle.offsetHeight;
+          
+          newX = Math.max(0, Math.min(window.innerWidth - toggleWidth, newX));
+          newY = Math.max(0, Math.min(window.innerHeight - toggleHeight, newY));
+          
+          themeToggle.style.left = `${newX}px`;
+          themeToggle.style.top = `${newY}px`;
+          themeToggle.style.right = 'auto';
+          themeToggle.style.bottom = 'auto';
+          
+          e.preventDefault();
+        }
+
+        // Función para manejar el final del arrastre
+        function handleEnd(e) {
+          if (!isDragging) return;
+          
+          isDragging = false;
+          themeToggle.style.transition = 'all 0.2s ease';
+          
+          // NO guardar la posición para que siempre vuelva a la posición inicial
+          // localStorage.setItem('toggle-position', JSON.stringify({ 
+          //   x: rect.left, 
+          //   y: rect.top 
+          // }));
+          
+          // Si fue un click rápido (menos de 200ms), cambiar tema
+          const dragDuration = Date.now() - dragStartTime;
+          if (dragDuration < 200) {
+            const isDark = document.documentElement.classList.contains('dark');
+            
+            if (isDark) {
+              document.documentElement.classList.remove('dark');
+              localStorage.setItem('theme', 'light');
+            } else {
+              document.documentElement.classList.add('dark');
+              localStorage.setItem('theme', 'dark');
+            }
+          }
+        }
+
+        // Event listeners para mouse
+        themeToggle.addEventListener('mousedown', handleStart);
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('mouseup', handleEnd);
+
+        // Event listeners para touch (móvil)
+        themeToggle.addEventListener('touchstart', handleStart, { passive: false });
+        document.addEventListener('touchmove', handleMove, { passive: false });
+        document.addEventListener('touchend', handleEnd);
+
+        // Prevenir el comportamiento por defecto del click cuando se arrastra
+        themeToggle.addEventListener('click', (e) => {
+          const dragDuration = Date.now() - dragStartTime;
+          if (dragDuration >= 200) {
+            e.preventDefault();
           }
         });
       });
