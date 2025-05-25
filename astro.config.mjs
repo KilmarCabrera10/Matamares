@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tupaginaweb.com', // Cambia esto por tu dominio real
+  base: '/Matamares',
   vite: {
     plugins: [tailwindcss()]
   }

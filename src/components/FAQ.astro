@@ -41,14 +41,14 @@ const {
 } = Astro.props;
 ---
 
-<section id="faq" class="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+<section id="faq" class="py-20 bg-[var(--bg-primary)]">
   <div class="container-custom">
     <!-- Encabezado -->
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <h2 class="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4">
         {titulo}
       </h2>
-      <p class="text-lg text-gray-600 dark:text-gray-300">
+      <p class="text-lg text-[var(--text-secondary)]">
         {subtitulo}
       </p>
     </div>
@@ -57,25 +57,28 @@ const {
     <div class="max-w-3xl mx-auto space-y-4">
       {preguntas.map((item, index) => (
         <div 
-          class="faq-item border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:border-blue-300 dark:hover:border-blue-500 transition-colors bg-white dark:bg-gray-800"
+          class="faq-item border border-[var(--color-primary-100)]/10 dark:border-[var(--color-primary-100)]/5 rounded-lg overflow-hidden hover:border-[var(--color-primary-200)] dark:hover:border-[var(--color-primary-700)] transition-colors bg-[var(--bg-primary)] dark:bg-[var(--bg-secondary)]"
           data-index={index}
         >
           <!-- Pregunta -->
           <button
-            class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-[var(--bg-secondary)] dark:hover:bg-[var(--bg-primary)] transition-colors"
             aria-expanded="false"
             aria-controls={`faq-answer-${index}`}
           >
-            <span class="font-semibold text-gray-900 dark:text-white pr-8">
+            <span class="font-semibold text-[var(--text-primary)] dark:text-[var(--text-secondary)] pr-8">
               {item.pregunta}
             </span>
             <svg 
-              class="faq-icon w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 transition-transform duration-200" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
+              class="faq-icon w-5 h-5 text-[var(--color-primary-600)] dark:text-[var(--color-primary-500)] flex-shrink-0 transition-transform duration-200" 
+              fill="currentColor"
+              viewBox="0 0 20 20"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
             </svg>
           </button>
           
@@ -84,7 +87,7 @@ const {
             id={`faq-answer-${index}`}
             class="faq-content hidden"
           >
-            <div class="px-6 pb-4 text-gray-600 dark:text-gray-300 leading-relaxed border-t border-gray-100 dark:border-gray-700 pt-4">
+            <div class="px-6 pb-4 text-[var(--text-secondary)] leading-relaxed border-t border-[var(--color-primary-100)]/10 dark:border-[var(--color-primary-100)]/5 pt-4">
               {item.respuesta}
             </div>
           </div>
@@ -94,19 +97,19 @@ const {
     
     <!-- CTA final -->
     <div class="text-center mt-12">
-      <p class="text-gray-600 dark:text-gray-300 mb-6">
+      <p class="text-[var(--text-secondary)] mb-6">
         ¿Tienes más preguntas? Estamos aquí para ayudarte
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a 
           href="#formulario"
-          class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 dark:bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 dark:hover:bg-blue-400 transition-colors group"
+          class="inline-flex items-center justify-center px-6 py-3 bg-[var(--color-primary-600)] text-white font-semibold rounded-lg hover:bg-[var(--color-primary-700)] transition-colors group"
         >
           Solicitar Mi Página Gratis
         </a>
         <a 
           href="mailto:info@tupagina.com"
-          class="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-lg hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+          class="inline-flex items-center justify-center px-6 py-3 border-2 border-[var(--color-primary-100)] dark:border-[var(--color-primary-100)] text-[var(--text-primary)] dark:text-[var(--text-secondary)] font-semibold rounded-lg hover:border-[var(--color-primary-200)] dark:hover:border-[var(--color-primary-700)] hover:bg-[var(--bg-secondary)] dark:hover:bg-[var(--bg-primary)] transition-all"
         >
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -173,5 +176,9 @@ const {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  button[aria-expanded="true"] .faq-icon {
+    transform: rotate(180deg);
   }
 </style>

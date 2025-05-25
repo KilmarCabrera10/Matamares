@@ -7,28 +7,35 @@
 /* Variables CSS personalizadas con soporte para dark mode */
 @layer base {
   :root {
-    /* Colores para modo claro */
-    --color-primary: #3b82f6;
-    --color-secondary: #10b981;
-    --color-accent: #f59e0b;
+    /* Colores primarios */
+    --color-primary-50: #eff6ff;   /* blue-50 */
+    --color-primary-100: #dbeafe;  /* blue-100 */
+    --color-primary-500: #3b82f6;  /* blue-500 */
+    --color-primary-600: #2563eb;  /* blue-600 */
+    --color-primary-700: #1d4ed8;  /* blue-700 */
     
-    /* Colores de fondo y texto */
+    /* Colores de fondo */
     --bg-primary: #ffffff;
     --bg-secondary: #f3f4f6;
-    --text-primary: #111827;
-    --text-secondary: #6b7280;
+    
+    /* Colores de texto */
+    --text-primary: #111827;    /* gray-900 */
+    --text-secondary: #6b7280;  /* gray-600 */
   }
   
   /* Colores para modo oscuro */
   .dark {
-    --color-primary: #60a5fa;
-    --color-secondary: #34d399;
-    --color-accent: #fbbf24;
+    --color-primary-50: #1e3a8a;   /* dark blue-900 */
+    --color-primary-100: #1e40af;  /* dark blue-800 */
+    --color-primary-500: #3b82f6;  /* blue-500 */
+    --color-primary-600: #2563eb;  /* blue-600 */
+    --color-primary-700: #1d4ed3;  /* blue-700 */
     
-    --bg-primary: #111827;
-    --bg-secondary: #1f2937;
-    --text-primary: #f9fafb;
-    --text-secondary: #d1d5db;
+    --bg-primary: #111827;      /* gray-900 */
+    --bg-secondary: #1f2937;    /* gray-800 */
+    
+    --text-primary: #f9fafb;    /* gray-50 */
+    --text-secondary: #d1d5db;  /* gray-300 */
   }
 }
 
@@ -51,5 +58,14 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+  
+  /* Gradientes personalizados */
+  .gradient-primary {
+    @apply bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800;
+  }
+  
+  .gradient-button {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600;
   }
 }

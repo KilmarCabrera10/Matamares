@@ -1,0 +1,229 @@
+---
+// src/pages/bubble-tea.astro
+// Página especializada para negocio de bubble tea inspirada en WoAiTea
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import FAQ from '../components/FAQ.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+
+// Testimonios específicos para bubble tea
+const testimonios = [
+  {
+    nombre: "María González",
+    empresa: "Bubble Dreams",
+    testimonio: "Desde que tenemos nuestra página web, las ventas online aumentaron 300%. Los clientes pueden ver nuestro menú completo y hacer pedidos fácilmente.",
+    avatar: "👩‍💼",
+    rating: 5
+  },
+  {
+    nombre: "Carlos Chen",
+    empresa: "Tea Paradise",
+    testimonio: "La página web nos ayudó a mostrar la calidad de nuestros ingredientes y atraer clientes que buscan bubble tea auténtico. ¡Excelente inversión!",
+    avatar: "👨‍🍳",
+    rating: 5
+  },
+  {
+    nombre: "Ana Rodríguez",
+    empresa: "Boba Station",
+    testimonio: "Nuestros clientes ahora pueden personalizar sus bebidas online y recoger en tienda. La experiencia digital mejoró muchísimo.",
+    avatar: "👩‍💻",
+    rating: 5
+  }
+];
+---
+
+<BaseLayout 
+  titulo="Página Web Gratis para tu Negocio de Bubble Tea | Aumenta tus Ventas Online"
+  descripcion="Crea la página web perfecta para tu bubble tea shop. Menú digital, pedidos online, galería de bebidas y más. 100% gratis, sin costos ocultos."
+  palabrasClave="página web bubble tea, boba tea online, menú digital bubble tea, pedidos online té, negocio bubble tea, tienda boba web"
+>
+
+<!-- Hero Section -->
+<Hero 
+  titulo="🧋 Lleva tu Bubble Tea Shop al Siguiente Nivel"
+  subtitulo="Crea una página web profesional que muestre tus deliciosas creaciones, permita pedidos online y atraiga más clientes a tu negocio de bubble tea"
+  textoCTA="Quiero Mi Página de Bubble Tea"
+  urlCTA="#formulario"
+  textoSecundario="✨ Menú digital incluido • Galería de bebidas • Sistema de pedidos"
+  mostrarGarantia={true}
+/>
+
+<!-- Features Section -->
+<Features 
+  titulo="Todo lo que tu Bubble Tea Shop Necesita Online"
+  subtitulo="Herramientas especializadas para hacer crecer tu negocio de bubble tea y conectar con más amantes del boba"
+  features={[
+    {
+      icono: "🧋",
+      titulo: "Menú Digital Interactivo",
+      descripcion: "Muestra todas tus bebidas con fotos apetitosas, ingredientes, niveles de dulzura y opciones de personalización. Tus clientes podrán explorar cada sabor."
+    },
+    {
+      icono: "📱",
+      titulo: "Pedidos Online Fáciles",
+      descripcion: "Sistema de pedidos integrado donde los clientes pueden personalizar su bubble tea, elegir toppings y programar la hora de recogida."
+    },
+    {
+      icono: "📸",
+      titulo: "Galería de Bebidas",
+      descripcion: "Galería visual que muestra tus creaciones más populares y nuevos sabores. Perfecto para redes sociales y marketing visual."
+    },
+    {
+      icono: "⭐",
+      titulo: "Reseñas de Clientes",
+      descripcion: "Sección de testimonios donde tus clientes pueden compartir su experiencia y recomendar sus sabores favoritos."
+    },
+    {
+      icono: "🕒",
+      titulo: "Horarios y Ubicación",
+      descripcion: "Información clara sobre horarios de atención, ubicación con mapa integrado y datos de contacto para que te encuentren fácilmente."
+    },
+    {
+      icono: "🎯",
+      titulo: "Promociones Especiales",
+      descripcion: "Sección destacada para promociones, combos especiales, descuentos por fidelidad y eventos especiales de tu bubble tea shop."
+    }
+  ]}
+/>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-20 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-purple-900/20 transition-colors duration-300">
+  <div class="container-custom">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        Bubble Tea Shops que Confiaron en Nosotros
+      </h2>
+      <p class="text-lg text-gray-600 dark:text-gray-300">
+        Descubre cómo otros negocios de bubble tea han crecido con su página web profesional
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {testimonios.map((testimonio, index) => (
+        <div 
+          class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-purple-500/10 hover:shadow-xl transition-all duration-300"
+          style={`animation-delay: ${index * 200}ms`}
+        >
+          <div class="flex items-center mb-4">
+            <div class="text-3xl mr-3">{testimonio.avatar}</div>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">{testimonio.nombre}</h4>
+              <p class="text-purple-600 dark:text-purple-400 text-sm">{testimonio.empresa}</p>
+            </div>
+          </div>
+          
+          <div class="flex mb-3">
+            {Array.from({length: testimonio.rating}).map(() => (
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            ))}
+          </div>
+          
+          <p class="text-gray-600 dark:text-gray-300 italic">
+            "{testimonio.testimonio}"
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<FAQ 
+  titulo="Preguntas Frecuentes sobre Páginas Web para Bubble Tea"
+  subtitulo="Resolvemos todas tus dudas sobre cómo una página web puede impulsar tu negocio de bubble tea"
+  preguntas={[
+    {
+      pregunta: "¿La página web incluye un menú digital para mi bubble tea shop?",
+      respuesta: "¡Absolutamente! Incluimos un menú digital completo donde puedes mostrar todas tus bebidas con fotos, ingredientes, opciones de personalización (nivel de dulzura, hielo, toppings) y precios. Es perfecto para que los clientes exploren tus opciones antes de visitar."
+    },
+    {
+      pregunta: "¿Puedo mostrar mis ingredientes premium y proceso de preparación?",
+      respuesta: "Sí, incluimos secciones especiales para destacar la calidad de tus ingredientes, el proceso de preparación artesanal y lo que hace único a tu bubble tea. Esto genera confianza y justifica precios premium."
+    },
+    {
+      pregunta: "¿Los clientes pueden hacer pedidos online para recoger en tienda?",
+      respuesta: "Incluimos un sistema básico de contacto y formularios. Para un sistema completo de pedidos online con pagos, eso sería parte de nuestros servicios premium, pero te ayudamos a configurar opciones gratuitas como WhatsApp Business."
+    },
+    {
+      pregunta: "¿Puedo mostrar promociones especiales y combos?",
+      respuesta: "¡Por supuesto! Incluimos secciones destacadas para promociones, combos especiales, descuentos por fidelidad y eventos especiales. Puedes actualizar estas ofertas fácilmente desde tu panel de administración."
+    },
+    {
+      pregunta: "¿La página ayudará a atraer clientes jóvenes que usan redes sociales?",
+      respuesta: "Definitivamente. Diseñamos páginas modernas y visualmente atractivas, perfectas para compartir en Instagram y TikTok. Incluimos integración con redes sociales y botones para compartir fácilmente."
+    },
+    {
+      pregunta: "¿Puedo mostrar la ubicación y horarios de mi bubble tea shop?",
+      respuesta: "Sí, incluimos una sección completa con tu ubicación (mapa integrado), horarios de atención, información de contacto y cómo llegar. Esto es esencial para que los clientes te encuentren fácilmente."
+    }
+  ]}
+/>
+
+<!-- Contact Form -->
+<ContactForm 
+  titulo="🧋 Solicita tu Página Web para Bubble Tea Gratis"
+  subtitulo="Completa el formulario y en 48 horas tendrás una página web que hará que tu bubble tea shop destaque"
+  botonTexto="Quiero Mi Página de Bubble Tea"
+  mostrarTelefono={true}
+  mostrarEmpresa={true}
+/>
+
+<!-- Footer -->
+<Footer 
+  nombreEmpresa="Páginas Web para Bubble Tea"
+  email="bubbletea@tupaginagratis.com"
+  telefono="+1 234 567 890"
+  direccion="Especialistas en Bubble Tea Digital"
+  redesSociales={{
+    facebook: "#",
+    instagram: "#",
+    twitter: "#",
+    linkedin: "#"
+  }}
+/>
+
+</BaseLayout>
+
+<style>
+  /* Animaciones específicas para bubble tea */
+  @keyframes bubble-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+  }
+  
+  .bubble-animation {
+    animation: bubble-float 3s ease-in-out infinite;
+  }
+  
+  /* Gradientes temáticos de bubble tea */
+  .bubble-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .taro-gradient {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  }
+</style>
+
+<script>
+  // Efectos interactivos específicos para bubble tea
+  document.addEventListener('DOMContentLoaded', () => {
+    // Agregar efecto de burbujas flotantes
+    const heroSection = document.querySelector('#hero');
+    if (heroSection) {
+      // Crear burbujas decorativas
+      for (let i = 0; i < 5; i++) {
+        const bubble = document.createElement('div');
+        bubble.className = 'absolute w-4 h-4 bg-purple-300 dark:bg-purple-500 rounded-full opacity-20 bubble-animation';
+        bubble.style.left = Math.random() * 100 + '%';
+        bubble.style.top = Math.random() * 100 + '%';
+        bubble.style.animationDelay = Math.random() * 3 + 's';
+        heroSection.appendChild(bubble);
+      }
+    }
+  });
+</script>

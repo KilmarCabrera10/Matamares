@@ -17,197 +17,154 @@ const {
 } = Astro.props;
 ---
 
-<section id="formulario" class="py-20 bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+<section id="formulario" class="py-20 gradient-primary transition-colors duration-300">
   <div class="container-custom">
-    <div class="max-w-4xl mx-auto">
-      <!-- Card del formulario -->
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-2xl dark:shadow-black/20 overflow-hidden">
-        <!-- Header del formulario -->
-        <div class="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 px-8 py-12 text-center text-white">
-          <h2 class="text-3xl sm:text-4xl font-bold mb-4">
-            {titulo}
-          </h2>
-          <p class="text-lg text-blue-100 dark:text-blue-100">
-            {subtitulo}
-          </p>
-          
-          <!-- Badges de confianza -->
-          <div class="flex flex-wrap justify-center gap-4 mt-6">
-            <span class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 dark:bg-white/10 backdrop-blur rounded-full text-sm">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              Sin pagos ocultos
-            </span>
-            <span class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 dark:bg-white/10 backdrop-blur rounded-full text-sm">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              Respuesta en 24h
-            </span>
-          </div>
-        </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <!-- Columna de información -->
+      <div class="gradient-button px-8 py-12 text-center text-white rounded-2xl">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-6">
+          ¡Tu Página Web Gratis te Espera!
+        </h2>
+        <p class="text-lg text-white/90 dark:text-white/90 mb-8">
+          Completa el formulario y en menos de 24 horas tendrás tu página web profesional lista para conquistar Internet.
+        </p>
         
-        <!-- Formulario -->
-        <form class="p-8 space-y-6" id="contact-form">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Nombre -->
-            <div>
-              <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                Nombre completo *
-              </label>
-              <input
-                type="text"
-                id="nombre"
-                name="nombre"
-                required
-                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-400"
-                placeholder="Juan Pérez"
-              />
-            </div>
-            
-            <!-- Email -->
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                Correo electrónico *
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-400"
-                placeholder="juan@ejemplo.com"
-              />
-            </div>
-            
-            <!-- Teléfono (opcional) -->
-            {mostrarTelefono && (
-              <div>
-                <label for="telefono" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                  Teléfono
-                  <span class="text-gray-400 dark:text-gray-500 text-xs ml-1">(opcional)</span>
-                </label>
-                <input
-                  type="tel"
-                  id="telefono"
-                  name="telefono"
-                  class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-400"
-                  placeholder="+1 234 567 8900"
-                />
-              </div>
-            )}
-            
-            <!-- Empresa (opcional) -->
-            {mostrarEmpresa && (
-              <div>
-                <label for="empresa" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                  Nombre de tu negocio
-                  <span class="text-gray-400 dark:text-gray-500 text-xs ml-1">(opcional)</span>
-                </label>
-                <input
-                  type="text"
-                  id="empresa"
-                  name="empresa"
-                  class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-400"
-                  placeholder="Mi Empresa"
-                />
-              </div>
-            )}
-          </div>
-          
-          <!-- Tipo de negocio -->
+        <!-- Lista de beneficios -->
+        <ul class="space-y-4 text-left max-w-md mx-auto mb-8">
+          {[
+            "Diseño Profesional y Responsive",
+            "Hosting Premium Incluido",
+            "Dominio Personalizado",
+            "Certificado SSL Gratis",
+            "Soporte Técnico",
+            "Sin Costos Ocultos"
+          ].map(benefit => (
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>{benefit}</span>
+            </li>
+          ))}
+        </ul>
+        
+        <!-- Garantía -->
+        <div class="text-sm text-white/80 dark:text-white/80">
+          ✨ Sin compromiso • Cancela cuando quieras
+        </div>
+      </div>
+
+      <!-- Formulario -->
+      <div class="bg-[var(--bg-primary)] p-8 rounded-2xl shadow-xl">
+        <form class="space-y-6" action="/submit" method="POST">
+          <!-- Nombre -->
           <div>
-            <label for="tipo-negocio" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-              ¿Qué tipo de negocio tienes? *
+            <label for="nombre" class="block text-sm font-medium text-[var(--text-primary)] mb-2">
+              Nombre Completo
+            </label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-[var(--color-primary-100)]/20 dark:border-[var(--color-primary-100)]/10 bg-[var(--bg-primary)] text-[var(--text-primary)] focus:ring-2 focus:ring-[var(--color-primary-500)] focus:border-transparent outline-none transition-all"
+              placeholder="Tu nombre"
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-[var(--text-primary)] mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-[var(--color-primary-100)]/20 dark:border-[var(--color-primary-100)]/10 bg-[var(--bg-primary)] text-[var(--text-primary)] focus:ring-2 focus:ring-[var(--color-primary-500)] focus:border-transparent outline-none transition-all"
+              placeholder="tu@email.com"
+            />
+          </div>
+
+          <!-- Teléfono -->
+          <div>
+            <label for="telefono" class="block text-sm font-medium text-[var(--text-primary)] mb-2">
+              Teléfono (opcional)
+            </label>
+            <input
+              type="tel"
+              id="telefono"
+              name="telefono"
+              class="w-full px-4 py-2 rounded-lg border border-[var(--color-primary-100)]/20 dark:border-[var(--color-primary-100)]/10 bg-[var(--bg-primary)] text-[var(--text-primary)] focus:ring-2 focus:ring-[var(--color-primary-500)] focus:border-transparent outline-none transition-all"
+              placeholder="+34 600 000 000"
+            />
+          </div>
+
+          <!-- Tipo de Negocio -->
+          <div>
+            <label for="tipo_negocio" class="block text-sm font-medium text-[var(--text-primary)] mb-2">
+              Tipo de Negocio
             </label>
             <select
-              id="tipo-negocio"
-              name="tipo-negocio"
+              id="tipo_negocio"
+              name="tipo_negocio"
               required
-              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200"
+              class="w-full px-4 py-2 rounded-lg border border-[var(--color-primary-100)]/20 dark:border-[var(--color-primary-100)]/10 bg-[var(--bg-primary)] text-[var(--text-primary)] focus:ring-2 focus:ring-[var(--color-primary-500)] focus:border-transparent outline-none transition-all"
             >
               <option value="">Selecciona una opción</option>
-              <option value="restaurante">Restaurante / Comida</option>
+              <option value="tienda">Tienda Online</option>
               <option value="servicios">Servicios Profesionales</option>
-              <option value="tienda">Tienda / E-commerce</option>
-              <option value="salud">Salud / Bienestar</option>
-              <option value="educacion">Educación / Cursos</option>
+              <option value="restaurante">Restaurante/Café</option>
               <option value="otro">Otro</option>
             </select>
           </div>
-          
+
           <!-- Mensaje -->
           <div>
-            <label for="mensaje" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-              Cuéntanos sobre tu proyecto
-              <span class="text-gray-400 dark:text-gray-500 text-xs ml-1">(opcional)</span>
+            <label for="mensaje" class="block text-sm font-medium text-[var(--text-primary)] mb-2">
+              Mensaje (opcional)
             </label>
             <textarea
               id="mensaje"
               name="mensaje"
               rows="4"
-              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200 resize-none placeholder-gray-400 dark:placeholder-gray-400"
-              placeholder="Describe brevemente qué tipo de página web necesitas..."
+              class="w-full px-4 py-2 rounded-lg border border-[var(--color-primary-100)]/20 dark:border-[var(--color-primary-100)]/10 bg-[var(--bg-primary)] text-[var(--text-primary)] focus:ring-2 focus:ring-[var(--color-primary-500)] focus:border-transparent outline-none transition-all resize-none"
+              placeholder="Cuéntanos más sobre tu proyecto..."
             ></textarea>
           </div>
-          
-          <!-- Checkbox de términos -->
+
+          <!-- Términos y Condiciones -->
           <div class="flex items-start">
-            <input
-              type="checkbox"
-              id="terminos"
-              name="terminos"
-              required
-              class="mt-1 w-4 h-4 text-blue-600 dark:text-blue-400 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500 dark:focus:ring-blue-400 dark:bg-gray-700"
-            />
-            <label for="terminos" class="ml-2 text-sm text-gray-600 dark:text-gray-300">
-              Acepto recibir información sobre mi página web gratis y entiendo que no hay costos ocultos *
-            </label>
+            <div class="flex items-center h-5">
+              <input
+                id="terminos"
+                name="terminos"
+                type="checkbox"
+                required
+                class="mt-1 w-4 h-4 text-[var(--color-primary-600)] dark:text-[var(--color-primary-500)] border-[var(--color-primary-100)]/20 dark:border-[var(--color-primary-100)]/10 rounded focus:ring-[var(--color-primary-500)] dark:focus:ring-[var(--color-primary-400)] dark:bg-[var(--bg-secondary)]"
+              />
+            </div>
+            <div class="ml-3">
+              <label for="terminos" class="text-sm text-[var(--text-secondary)]">
+                Acepto los <a href="/terminos" class="text-[var(--color-primary-600)] dark:text-[var(--color-primary-500)] hover:underline">términos y condiciones</a> y la <a href="/privacidad" class="text-[var(--color-primary-600)] dark:text-[var(--color-primary-500)] hover:underline">política de privacidad</a>
+              </label>
+            </div>
           </div>
-          
+
           <!-- Botón de envío -->
           <button
             type="submit"
-            class="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 dark:hover:from-blue-400 dark:hover:to-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-blue-500 transition-all duration-200 transform hover:scale-[1.02]"
+            class="w-full py-4 px-6 gradient-button text-white font-semibold rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary-500)] dark:focus:ring-offset-gray-800 transition-all duration-200 transform hover:scale-[1.02]"
           >
-            {botonTexto}
+            Solicitar Mi Página Web Gratis
           </button>
-          
-          <!-- Mensaje de éxito (oculto por defecto) -->
-          <div id="mensaje-exito" class="hidden p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-            <p class="text-green-800 dark:text-green-300 font-medium">
-              ¡Gracias! Hemos recibido tu solicitud y te contactaremos pronto.
-            </p>
-          </div>
         </form>
-      </div>
-      
-      <!-- Garantías adicionales -->
-      <div class="mt-8 text-center text-gray-600 dark:text-gray-400">
-        <p class="mb-4">
-          🔒 Tus datos están seguros y no los compartiremos con terceros
+
+        <!-- Texto de seguridad -->
+        <p class="mt-4 text-center text-sm text-[var(--text-secondary)]">
+          🔒 Tus datos están seguros y nunca serán compartidos
         </p>
-        <div class="flex flex-wrap justify-center gap-6 text-sm">
-          <span class="flex items-center gap-2">
-            <svg class="w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-            </svg>
-            100% Gratis
-          </span>
-          <span class="flex items-center gap-2">
-            <svg class="w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-            </svg>
-            Sin compromisos
-          </span>
-          <span class="flex items-center gap-2">
-            <svg class="w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-            </svg>
-            Respuesta rápida
-          </span>
-        </div>
       </div>
     </div>
   </div>

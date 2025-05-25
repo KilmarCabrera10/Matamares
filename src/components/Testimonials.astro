@@ -17,28 +17,40 @@ const {
   subtitulo = "Más de 500 empresas ya tienen su página web gratis con nosotros",
   testimonios = [
     {
-      nombre: "María González",
-      empresa: "Café Aroma",
-      testimonio: "No podía creer que fuera gratis. En 2 días tenía mi página funcionando y ya he recibido varios clientes nuevos. ¡Increíble servicio!",
-      rating: 5,
-      imagen: "MG"
+      nombre: "Ana García",
+      cargo: "Diseñadora Freelance",
+      texto: "Increíble servicio. Mi página quedó exactamente como la quería y el proceso fue muy fácil.",
+      imagen: "/testimonials/ana.jpg"
     },
     {
-      nombre: "Carlos Rodríguez",
-      empresa: "Consultoría CR",
-      testimonio: "Pensé que habría algún truco, pero no. Mi página es profesional, rápida y no he pagado nada. El soporte es excelente.",
-      rating: 5,
-      imagen: "CR"
+      nombre: "Carlos Ruiz",
+      cargo: "Dueño de Restaurante",
+      texto: "No podía creer que fuera gratis. La calidad es excepcional y el soporte es excelente.",
+      imagen: "/testimonials/carlos.jpg"
     },
     {
-      nombre: "Ana Martínez",
-      empresa: "Yoga & Bienestar",
-      testimonio: "La página superó mis expectativas. Mis clientes la adoran y puedo actualizar el contenido fácilmente. 100% recomendado.",
-      rating: 5,
-      imagen: "AM"
+      nombre: "María Torres",
+      cargo: "Consultora Independiente",
+      texto: "Mi negocio creció un 200% después de tener mi página web profesional. ¡Totalmente recomendado!",
+      imagen: "/testimonials/maria.jpg"
     }
   ]
 } = Astro.props;
+
+const stats = [
+  {
+    numero: "500+",
+    texto: "Páginas Creadas"
+  },
+  {
+    numero: "4.9/5",
+    texto: "Satisfacción"
+  },
+  {
+    numero: "24h",
+    texto: "Tiempo Promedio"
+  }
+];
 
 // Función para generar las estrellas
 function generateStars(rating: number) {
@@ -46,87 +58,84 @@ function generateStars(rating: number) {
 }
 ---
 
-<section id="testimonials" class="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+<section class="py-20 bg-[var(--bg-primary)]">
   <div class="container-custom">
     <!-- Encabezado -->
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <h2 class="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4">
         {titulo}
       </h2>
-      <p class="text-lg text-gray-600 dark:text-gray-300">
+      <p class="text-lg text-[var(--text-secondary)]">
         {subtitulo}
       </p>
-      
-      <!-- Estadísticas rápidas -->
-      <div class="flex justify-center gap-8 mt-8">
-        <div class="text-center">
-          <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">500+</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">Páginas creadas</div>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">4.9/5</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">Satisfacción</div>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">24h</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">Tiempo promedio</div>
-        </div>
-      </div>
     </div>
-    
-    <!-- Grid de testimonios -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {testimonios.map((testimonio, index) => (
-        <div 
-          class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg dark:shadow-gray-900/50 hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 animate-fade-in border border-gray-100 dark:border-gray-700"
-          style={`animation-delay: ${index * 100}ms`}
-        >
-          <!-- Rating -->
-          <div class="flex gap-1 mb-4">
-            {generateStars(testimonio.rating || 5).map((filled) => (
-              <svg 
-                class={`w-5 h-5 ${filled ? 'text-yellow-400 fill-current' : 'text-gray-300 dark:text-gray-600'}`} 
-                viewBox="0 0 20 20"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-              </svg>
-            ))}
+
+    <!-- Estadísticas -->
+    <div class="grid grid-cols-3 gap-8 max-w-3xl mx-auto mb-16">
+      {stats.map(stat => (
+        <div class="text-center">
+          <div class="text-3xl font-bold text-[var(--color-primary-600)] dark:text-[var(--color-primary-500)]">
+            {stat.numero}
           </div>
-          
-          <!-- Testimonio -->
-          <blockquote class="text-gray-700 dark:text-gray-300 mb-6 italic">
-            "{testimonio.testimonio}"
-          </blockquote>
-          
-          <!-- Autor -->
-          <div class="flex items-center gap-3">
-            <!-- Avatar -->
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-full flex items-center justify-center text-white font-semibold shadow-md">
-              {testimonio.imagen}
-            </div>
-            
-            <!-- Info -->
-            <div>
-              <div class="font-semibold text-gray-900 dark:text-white">{testimonio.nombre}</div>
-              <div class="text-sm text-gray-600 dark:text-gray-400">{testimonio.empresa}</div>
-            </div>
+          <div class="text-[var(--text-secondary)] mt-1">
+            {stat.texto}
           </div>
         </div>
       ))}
     </div>
-    
-    <!-- CTA después de testimonios -->
-    <div class="text-center mt-12 p-8 bg-blue-50 dark:bg-gray-900 rounded-2xl border border-blue-100 dark:border-gray-700">
-      <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">
-        ¿Listo para unirte a cientos de empresas satisfechas?
-      </p>
-      <a 
-        href="#formulario"
-        class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 dark:bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 dark:hover:bg-blue-400 transition-colors group"
+
+    <!-- Testimonios -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {testimonios.map((testimonio, index) => (
+        <div class="relative">
+          <!-- Tarjeta de testimonio -->
+          <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 h-full">
+            <!-- Avatar y detalles -->
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] dark:from-[var(--color-primary-400)] dark:to-[var(--color-primary-500)] rounded-full flex items-center justify-center text-white font-semibold shadow-md">
+                {testimonio.nombre.charAt(0)}
+              </div>
+              <div class="ml-4">
+                <div class="font-semibold text-[var(--text-primary)]">
+                  {testimonio.nombre}
+                </div>
+                <div class="text-sm text-[var(--text-secondary)]">
+                  {testimonio.cargo}
+                </div>
+              </div>
+            </div>
+            
+            <!-- Texto del testimonio -->
+            <p class="text-[var(--text-secondary)] leading-relaxed">
+              "{testimonio.texto}"
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12 p-8 bg-[var(--bg-secondary)] rounded-2xl border border-[var(--color-primary-100)]/10 dark:border-[var(--color-primary-100)]/5">
+      <h3 class="text-2xl font-bold text-[var(--text-primary)] mb-4">
+        ¿Listo para Unirte a Ellos?
+      </h3>
+      <a
+        href="#contacto"
+        class="inline-flex items-center gap-2 px-6 py-3 gradient-button text-white font-semibold rounded-lg hover:opacity-90 transition-colors group"
       >
-        Crear Mi Página Gratis
-        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        Comienza Ahora - ¡Es Gratis!
+        <svg
+          class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 8l4 4m0 0l-4 4m4-4H3"
+          />
         </svg>
       </a>
     </div>
