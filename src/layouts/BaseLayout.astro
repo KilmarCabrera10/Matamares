@@ -1,6 +1,6 @@
 ---
-// Layout principal para todas las páginas
-// Astro 5 usa ViewTransitions para navegación suave
+// Layout principal optimizado para Wo Ai Tea
+// Paleta: Naranja cálido, marrón café, crema, negro
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from '@vercel/analytics/astro'
 import '../styles/global.css';
@@ -15,11 +15,11 @@ export interface Props {
 const { 
   titulo, 
   descripcion,
-  imagen = '/og-image.jpg',
-  palabrasClave = 'página web gratis, diseño web profesional, landing page, crear sitio web'
+  imagen = '/wo-ai-tea-og.jpg',
+  palabrasClave = 'bubble tea El Salvador, té con leche premium, mochis artesanales, Plaza Soho Las Cascadas, PedidosYA'
 } = Astro.props;
 
-// URL canónica para SEO
+// URL canónica para SEO local
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -28,20 +28,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon-woaitea.ico" />
     
-    <!-- SEO Meta Tags -->
+    <!-- SEO Meta Tags Optimizado para Negocio Local -->
     <title>{titulo}</title>
     <meta name="description" content={descripcion} />
     <meta name="keywords" content={palabrasClave} />
     <link rel="canonical" href={canonicalURL} />
     
+    <!-- Geo Tags para SEO Local -->
+    <meta name="geo.region" content="SV" />
+    <meta name="geo.placename" content="Antiguo Cuscatlán, El Salvador" />
+    <meta name="geo.position" content="13.6929;-89.2182" />
+    <meta name="ICBM" content="13.6929, -89.2182" />
+    
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="business.business" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={titulo} />
     <meta property="og:description" content={descripcion} />
     <meta property="og:image" content={imagen} />
+    <meta property="business:contact_data:street_address" content="Plaza Soho Las Cascadas" />
+    <meta property="business:contact_data:locality" content="Antiguo Cuscatlán" />
+    <meta property="business:contact_data:country_name" content="El Salvador" />
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -50,99 +59,165 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="twitter:description" content={descripcion} />
     <meta property="twitter:image" content={imagen} />
     
-    <!-- Preconnect para optimizar carga de fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Preconnect para optimizar carga -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
-    <!-- Estilos para animación de pulso -->
+    <!-- Variables CSS para Wo Ai Tea -->
     <style>
-      @keyframes pulse-theme {
-        0%, 100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
-        }
-        50% {
-          transform: scale(1.05);
-          box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
-        }
+      :root {
+        /* Paleta Principal - Wo Ai Tea */
+        --woai-orange: #FF8C42;        /* Naranja cálido principal */
+        --woai-orange-light: #FFB380;  /* Naranja claro */
+        --woai-orange-dark: #E6722A;   /* Naranja oscuro */
+        --woai-brown: #8B4513;         /* Marrón café */
+        --woai-brown-light: #A0522D;   /* Marrón claro */
+        --woai-cream: #F5F5DC;         /* Crema/beige */
+        --woai-cream-dark: #E6E6C7;    /* Crema oscuro */
+        --woai-black: #2C1810;         /* Negro cálido */
+        --woai-white: #FFFEF7;         /* Blanco cálido */
+        
+        /* Gradientes Temáticos */
+        --gradient-primary: linear-gradient(135deg, var(--woai-orange) 0%, var(--woai-orange-dark) 100%);
+        --gradient-warm: linear-gradient(135deg, var(--woai-cream) 0%, var(--woai-orange-light) 100%);
+        --gradient-brown: linear-gradient(135deg, var(--woai-brown-light) 0%, var(--woai-brown) 100%);
+        
+        /* Sombras Cálidas */
+        --shadow-warm: 0 4px 20px rgba(255, 140, 66, 0.15);
+        --shadow-brown: 0 4px 20px rgba(139, 69, 19, 0.15);
       }
       
-      @keyframes pulse-theme-dark {
-        0%, 100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(147, 197, 253, 0.7);
-        }
-        50% {
-          transform: scale(1.05);
-          box-shadow: 0 0 0 10px rgba(147, 197, 253, 0);
-        }
+      /* Modo Oscuro - Adaptado para Wo Ai Tea */
+      .dark {
+        --woai-bg-primary: #1A0F0A;
+        --woai-bg-secondary: #2C1810;
+        --woai-text-primary: #FFFEF7;
+        --woai-text-secondary: #F5F5DC;
       }
       
-      .pulse-animation {
-        animation: pulse-theme 2s ease-in-out;
+      /* Animaciones Personalizadas */
+      @keyframes bubble-float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-10px) rotate(1deg); }
+        66% { transform: translateY(-5px) rotate(-1deg); }
       }
       
-      .dark .pulse-animation {
-        animation: pulse-theme-dark 2s ease-in-out;
+      @keyframes tea-steam {
+        0% { opacity: 0.7; transform: translateY(0px) scaleX(1); }
+        50% { opacity: 1; transform: translateY(-20px) scaleX(1.1); }
+        100% { opacity: 0; transform: translateY(-40px) scaleX(0.8); }
+      }
+      
+      .bubble-animation {
+        animation: bubble-float 3s ease-in-out infinite;
+      }
+      
+      .steam-animation {
+        animation: tea-steam 2s ease-in-out infinite;
+      }
+      
+      /* Estilos Base */
+      body {
+        font-family: var(--font-primary);
+        background-color: var(--woai-white);
+        color: var(--woai-black);
+      }
+      
+      .dark body {
+        background-color: var(--woai-bg-primary);
+        color: var(--woai-text-primary);
       }
     </style>
   </head>
   
-  <body class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+  <body class="antialiased transition-colors duration-300">
     <!-- Skip to content para accesibilidad -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-orange-600 text-white px-4 py-2 rounded-lg z-50">
       Saltar al contenido principal
     </a>
     
-    <!-- Logo estático con tamaño responsive -->
-    <div class="absolute top-4 sm:top-6 left-0 z-40">
-      <div class="container-custom">
-        <a href="/" class="flex items-center group">
-          <!-- Logo para modo claro -->
-          <img 
-            src="/Matamares/matamares_negro.png" 
-            alt="Matamares Logo" 
-            class="h-8 sm:h-10 md:h-12 w-auto block dark:hidden transition-all duration-300 drop-shadow-lg group-hover:scale-105"
-          />
-          <!-- Logo para modo oscuro -->
-          <img 
-            src="/Matamares/matamares_blanco.png" 
-            alt="Matamares Logo" 
-            class="h-8 sm:h-10 md:h-12 w-auto hidden dark:block transition-all duration-300 drop-shadow-lg group-hover:scale-105"
-          />
-        </a>
+    <!-- Header con Logo Wo Ai Tea -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-orange-100 dark:border-gray-800">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 sm:h-20">
+          <!-- Logo Principal -->
+          <a href="/" class="flex items-center group">
+            <div class="relative">
+              <!-- Logo circular de Wo Ai Tea -->
+              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+                <span class="text-white font-bold text-lg sm:text-xl font-accent">茶</span>
+              </div>
+              <!-- Indicador de "steam" -->
+              <div class="absolute -top-1 -right-1 w-3 h-3 bg-orange-300 rounded-full steam-animation opacity-60"></div>
+            </div>
+            <div class="ml-3 hidden sm:block">
+              <h1 class="text-xl font-bold text-gray-900 dark:text-white font-accent">Wo Ai Tea</h1>
+              <p class="text-xs text-orange-600 dark:text-orange-400 font-medium">Better TEAgether</p>
+            </div>
+          </a>
+          
+          <!-- Navegación Rápida -->
+          <nav class="hidden md:flex items-center space-x-6">
+            <a href="#menu" class="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">Menú</a>
+            <a href="#ubicacion" class="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">Ubicación</a>
+            <a href="#contacto" class="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">Contacto</a>
+          </nav>
+          
+          <!-- CTAs Principales -->
+          <div class="flex items-center space-x-3">
+            <!-- Botón PedidosYA -->
+            <a href="https://pedidosya.com.sv" target="_blank" rel="noopener" 
+               class="hidden sm:inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-md hover:shadow-lg font-medium text-sm">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm6 14H8a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h2v1a1 1 0 0 0 2 0V9h2v10a1 1 0 0 1-1 1z"/>
+              </svg>
+              Pedir Ya
+            </a>
+            
+            <!-- Toggle de Tema -->
+            <button
+              id="theme-toggle"
+              type="button"
+              class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-orange-100 dark:bg-gray-800 text-orange-600 dark:text-orange-400 hover:bg-orange-200 dark:hover:bg-gray-700 transition-all duration-200"
+              aria-label="Cambiar tema"
+            >
+              <!-- Sol -->
+              <svg class="w-5 h-5 transition-all duration-300 scale-100 rotate-0 dark:scale-0 dark:rotate-90" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+              </svg>
+              <!-- Luna -->
+              <svg class="absolute w-5 h-5 transition-all duration-300 scale-0 -rotate-90 dark:scale-100 dark:rotate-0" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </header>
     
-    <!-- Toggle flotante - Posición inicial inferior derecha con bordes mejorados -->
-    <button
-      id="theme-toggle"
-      type="button"
-      class="fixed bottom-6 right-6 z-50 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-md border-2 border-gray-300/60 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-700/90 hover:border-gray-400/80 dark:hover:border-gray-500/90 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 transition-all duration-200 shadow-lg hover:shadow-xl cursor-grab active:cursor-grabbing select-none touch-none"
-      aria-label="Toggle dark mode"
-    >
-      <!-- Icono de sol (modo claro) -->
-      <svg class="absolute w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 scale-100 rotate-0 dark:scale-0 dark:rotate-90 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
-      </svg>
-      
-       <!-- Icono de luna (modo oscuro) -->
-      <svg class="absolute w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 scale-0 -rotate-90 dark:scale-100 dark:rotate-0" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
-       </svg>
-    </button>
+    <!-- Espaciado para header fijo -->
+    <div class="h-16 sm:h-20"></div>
     
-    <!-- Slot principal donde va el contenido de cada página -->
+    <!-- Contenido Principal -->
     <main id="main-content">
       <slot />
     </main>
     
-    <!-- Scripts globales -->
+    <!-- WhatsApp Flotante -->
+    <a href="https://wa.me/50312345678?text=¡Hola! Me interesa conocer más sobre Wo Ai Tea 🧋" 
+       target="_blank" rel="noopener"
+       class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 bubble-animation"
+       aria-label="Contactar por WhatsApp">
+      <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+      </svg>
+    </a>
+    
+    <!-- Scripts -->
     <script>
-      // Detectar preferencia de tema del usuario
+      // Tema personalizado para Wo Ai Tea
       const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('woai-theme')) {
+          return localStorage.getItem('woai-theme');
         }
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           return 'dark';
@@ -156,122 +231,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         document.documentElement.classList.remove('dark');
       }
 
-      // Toggle de tema con funcionalidad de arrastre
       document.addEventListener('DOMContentLoaded', () => {
         const themeToggle = document.getElementById('theme-toggle');
-        let isDragging = false;
-        let dragStartTime = 0;
-        let startX = 0;
-        let startY = 0;
-
-        // Limpiar posición guardada al cargar la página para que siempre inicie en la posición por defecto
-        localStorage.removeItem('toggle-position');
-
-        // Animación de pulso después de 2 segundos
-        setTimeout(() => {
-          themeToggle.classList.add('pulse-animation');
+        
+        themeToggle?.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.contains('dark');
           
-          // Remover la clase después de que termine la animación
-          setTimeout(() => {
-            themeToggle.classList.remove('pulse-animation');
-          }, 2000);
-        }, 2000);
-
-        // Función para resetear a posición inicial (inferior derecha)
-        function resetToInitialPosition() {
-          themeToggle.style.left = 'auto';
-          themeToggle.style.top = 'auto';
-          themeToggle.style.right = '24px';
-          themeToggle.style.bottom = '24px';
-        }
-
-        // Siempre iniciar en la posición por defecto
-        resetToInitialPosition();
-
-        // Función para manejar el inicio del arrastre
-        function handleStart(e) {
-          isDragging = true;
-          dragStartTime = Date.now();
-          
-          const rect = themeToggle.getBoundingClientRect();
-          const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
-          const clientY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
-          
-          startX = clientX - rect.left;
-          startY = clientY - rect.top;
-          
-          themeToggle.style.transition = 'none';
-          e.preventDefault();
-        }
-
-        // Función para manejar el movimiento
-        function handleMove(e) {
-          if (!isDragging) return;
-          
-          const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
-          const clientY = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
-          
-          let newX = clientX - startX;
-          let newY = clientY - startY;
-          
-          // Limitar el movimiento dentro de la ventana
-          const toggleWidth = themeToggle.offsetWidth;
-          const toggleHeight = themeToggle.offsetHeight;
-          
-          newX = Math.max(0, Math.min(window.innerWidth - toggleWidth, newX));
-          newY = Math.max(0, Math.min(window.innerHeight - toggleHeight, newY));
-          
-          themeToggle.style.left = `${newX}px`;
-          themeToggle.style.top = `${newY}px`;
-          themeToggle.style.right = 'auto';
-          themeToggle.style.bottom = 'auto';
-          
-          e.preventDefault();
-        }
-
-        // Función para manejar el final del arrastre
-        function handleEnd(e) {
-          if (!isDragging) return;
-          
-          isDragging = false;
-          themeToggle.style.transition = 'all 0.2s ease';
-          
-          // NO guardar la posición para que siempre vuelva a la posición inicial
-          // localStorage.setItem('toggle-position', JSON.stringify({ 
-          //   x: rect.left, 
-          //   y: rect.top 
-          // }));
-          
-          // Si fue un click rápido (menos de 200ms), cambiar tema
-          const dragDuration = Date.now() - dragStartTime;
-          if (dragDuration < 200) {
-            const isDark = document.documentElement.classList.contains('dark');
-            
-            if (isDark) {
-              document.documentElement.classList.remove('dark');
-              localStorage.setItem('theme', 'light');
-            } else {
-              document.documentElement.classList.add('dark');
-              localStorage.setItem('theme', 'dark');
-            }
-          }
-        }
-
-        // Event listeners para mouse
-        themeToggle.addEventListener('mousedown', handleStart);
-        document.addEventListener('mousemove', handleMove);
-        document.addEventListener('mouseup', handleEnd);
-
-        // Event listeners para touch (móvil)
-        themeToggle.addEventListener('touchstart', handleStart, { passive: false });
-        document.addEventListener('touchmove', handleMove, { passive: false });
-        document.addEventListener('touchend', handleEnd);
-
-        // Prevenir el comportamiento por defecto del click cuando se arrastra
-        themeToggle.addEventListener('click', (e) => {
-          const dragDuration = Date.now() - dragStartTime;
-          if (dragDuration >= 200) {
-            e.preventDefault();
+          if (isDark) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('woai-theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('woai-theme', 'dark');
           }
         });
       });

@@ -1,71 +1,580 @@
 /* Importar Tailwind CSS 4 */
 @import "tailwindcss";
 
+/* Importar Google Fonts - DEBE IR AQUÍ AL PRINCIPIO */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@500;600&display=swap');
+
 /* Crear variante personalizada para dark mode en Tailwind CSS 4 */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Variables CSS personalizadas con soporte para dark mode */
+/* Variables CSS personalizadas - Paleta Wo Ai Tea */
 @layer base {
   :root {
-    /* Colores primarios */
-    --color-primary-50: #eff6ff;   /* blue-50 */
-    --color-primary-100: #dbeafe;  /* blue-100 */
-    --color-primary-500: #3b82f6;  /* blue-500 */
-    --color-primary-600: #2563eb;  /* blue-600 */
-    --color-primary-700: #1d4ed8;  /* blue-700 */
+    /* Paleta de colores Wo Ai Tea */
+    --color-orange-50: #fff7ed;    /* Cream muy claro */
+    --color-orange-100: #ffedd5;   /* Cream claro */
+    --color-orange-200: #fed7aa;   /* Cream medio */
+    --color-orange-300: #fdba74;   /* Orange claro */
+    --color-orange-400: #fb923c;   /* Orange medio */
+    --color-orange-500: #f97316;   /* Orange principal */
+    --color-orange-600: #ea580c;   /* Orange oscuro */
+    --color-orange-700: #c2410c;   /* Orange muy oscuro */
+    --color-orange-800: #9a3412;   /* Brown-orange */
+    --color-orange-900: #7c2d12;   /* Brown oscuro */
+    
+    /* Colores complementarios */
+    --color-brown-50: #fdf8f6;     /* Cream rosado */
+    --color-brown-100: #f2e8e5;    /* Beige claro */
+    --color-brown-200: #eaddd7;    /* Beige */
+    --color-brown-300: #e0cfc7;    /* Brown claro */
+    --color-brown-400: #d6bdb0;    /* Brown medio */
+    --color-brown-500: #92400e;    /* Brown principal */
+    --color-brown-600: #78350f;    /* Brown oscuro */
+    --color-brown-700: #451a03;    /* Brown muy oscuro */
+    
+    /* Colores de cream */
+    --color-cream-25: #fffcf9;     /* Cream ultra claro */
+    --color-cream-50: #fefcf3;     /* Cream claro */
+    --color-cream-100: #fef7e0;    /* Cream */
+    --color-cream-200: #fdecc8;    /* Cream medio */
+    --color-cream-300: #fbd38d;    /* Cream oscuro */
+    
+    /* Colores primarios del sistema */
+    --color-primary-50: var(--color-orange-50);
+    --color-primary-100: var(--color-orange-100);
+    --color-primary-200: var(--color-orange-200);
+    --color-primary-300: var(--color-orange-300);
+    --color-primary-400: var(--color-orange-400);
+    --color-primary-500: var(--color-orange-500);
+    --color-primary-600: var(--color-orange-600);
+    --color-primary-700: var(--color-orange-700);
+    --color-primary-800: var(--color-orange-800);
+    --color-primary-900: var(--color-orange-900);
     
     /* Colores de fondo */
     --bg-primary: #ffffff;
-    --bg-secondary: #f3f4f6;
+    --bg-secondary: var(--color-cream-50);
+    --bg-tertiary: var(--color-orange-50);
+    --bg-accent: var(--color-orange-100);
     
     /* Colores de texto */
-    --text-primary: #111827;    /* gray-900 */
-    --text-secondary: #6b7280;  /* gray-600 */
+    --text-primary: #1f2937;       /* Gray-800 */
+    --text-secondary: #4b5563;     /* Gray-600 */
+    --text-tertiary: #6b7280;      /* Gray-500 */
+    --text-accent: var(--color-orange-700);
+    
+    /* Sombras personalizadas */
+    --shadow-soft: 0 4px 6px -1px rgba(249, 115, 22, 0.1), 0 2px 4px -1px rgba(249, 115, 22, 0.06);
+    --shadow-medium: 0 10px 15px -3px rgba(249, 115, 22, 0.1), 0 4px 6px -2px rgba(249, 115, 22, 0.05);
+    --shadow-strong: 0 20px 25px -5px rgba(249, 115, 22, 0.1), 0 10px 10px -5px rgba(249, 115, 22, 0.04);
+    --shadow-bubble: 0 8px 32px rgba(249, 115, 22, 0.15);
+    
+/* Tipografías */
+--font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+--font-accent: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+--font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    
+    /* Espaciados personalizados */
+    --spacing-section: 5rem;       /* 80px */
+    --spacing-component: 3rem;     /* 48px */
+    --spacing-element: 1.5rem;     /* 24px */
+    
+    /* Bordes redondeados */
+    --radius-small: 0.5rem;        /* 8px */
+    --radius-medium: 0.75rem;      /* 12px */
+    --radius-large: 1rem;          /* 16px */
+    --radius-xl: 1.5rem;           /* 24px */
+    --radius-bubble: 2rem;         /* 32px */
+    
+    /* Transiciones */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
   }
   
   /* Colores para modo oscuro */
   .dark {
-    --color-primary-50: #1e3a8a;   /* dark blue-900 */
-    --color-primary-100: #1e40af;  /* dark blue-800 */
-    --color-primary-500: #3b82f6;  /* blue-500 */
-    --color-primary-600: #2563eb;  /* blue-600 */
-    --color-primary-700: #1d4ed3;  /* blue-700 */
+    --color-primary-50: var(--color-orange-900);
+    --color-primary-100: var(--color-orange-800);
+    --color-primary-200: var(--color-orange-700);
+    --color-primary-300: var(--color-orange-600);
+    --color-primary-400: var(--color-orange-500);
+    --color-primary-500: var(--color-orange-400);
+    --color-primary-600: var(--color-orange-300);
+    --color-primary-700: var(--color-orange-200);
+    --color-primary-800: var(--color-orange-100);
+    --color-primary-900: var(--color-orange-50);
     
-    --bg-primary: #111827;      /* gray-900 */
-    --bg-secondary: #1f2937;    /* gray-800 */
+    --bg-primary: #0f172a;         /* Slate-900 */
+    --bg-secondary: #1e293b;       /* Slate-800 */
+    --bg-tertiary: #334155;        /* Slate-700 */
+    --bg-accent: #475569;          /* Slate-600 */
     
-    --text-primary: #f9fafb;    /* gray-50 */
-    --text-secondary: #d1d5db;  /* gray-300 */
+    --text-primary: #f8fafc;       /* Slate-50 */
+    --text-secondary: #e2e8f0;     /* Slate-200 */
+    --text-tertiary: #cbd5e1;      /* Slate-300 */
+    --text-accent: var(--color-orange-300);
+    
+    --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --shadow-strong: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+    --shadow-bubble: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Reset y configuración base */
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+  
+  body {
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Tipografías personalizadas */
+  .font-primary {
+    font-family: var(--font-primary);
+  }
+  
+  .font-accent {
+    font-family: var(--font-accent);
+  }
+  
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+  
+  /* Headings con tipografía de marca */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-accent);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+  
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+  }
+  
+  h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+  }
+  
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+  }
+  
+  /* Enlaces con estilo de marca */
+  a {
+    color: var(--text-accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  a:hover {
+    color: var(--color-primary-600);
+  }
+  
+  /* Selección de texto personalizada */
+  ::selection {
+    background-color: var(--color-orange-200);
+    color: var(--color-orange-800);
+  }
+  
+  ::-moz-selection {
+    background-color: var(--color-orange-200);
+    color: var(--color-orange-800);
+  }
+  
+  /* Scrollbar personalizada */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-orange-300);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-orange-400);
   }
 }
 
 /* Clases utilitarias reutilizables */
 @layer utilities {
+  /* Contenedores */
   .container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-wide {
+    @apply max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Espaciados de sección */
+  .section-padding {
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
+  }
+  
+  .section-padding-sm {
+    padding-top: calc(var(--spacing-section) * 0.75);
+    padding-bottom: calc(var(--spacing-section) * 0.75);
+  }
+  
+  .section-padding-lg {
+    padding-top: calc(var(--spacing-section) * 1.5);
+    padding-bottom: calc(var(--spacing-section) * 1.5);
+  }
+  
+  /* Animaciones */
   .animate-fade-in {
     animation: fadeIn 0.6s ease-out;
   }
   
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
   }
   
-  /* Gradientes personalizados */
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
+  }
+  
+  .animate-bounce-gentle {
+    animation: bounceGentle 2s ease-in-out infinite;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-pulse-soft {
+    animation: pulseSoft 2s ease-in-out infinite;
+  }
+  
+  /* Gradientes temáticos */
   .gradient-primary {
-    @apply bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800;
+    background: linear-gradient(135deg, var(--color-orange-50) 0%, var(--bg-primary) 100%);
   }
   
-  .gradient-button {
-    @apply bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600;
+  .gradient-secondary {
+    background: linear-gradient(135deg, var(--color-cream-50) 0%, var(--color-orange-50) 100%);
+  }
+  
+  .gradient-accent {
+    background: linear-gradient(135deg, var(--color-orange-500) 0%, var(--color-orange-600) 100%);
+  }
+  
+  .gradient-warm {
+    background: linear-gradient(135deg, var(--color-orange-100) 0%, var(--color-cream-100) 50%, var(--color-brown-100) 100%);
+  }
+  
+  .gradient-bubble {
+    background: radial-gradient(circle at 30% 30%, var(--color-orange-200) 0%, var(--color-orange-100) 50%, transparent 70%);
+  }
+  
+  /* Botones personalizados */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-orange-200;
+    background: var(--gradient-accent);
+    color: white;
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .btn-primary:hover {
+    box-shadow: var(--shadow-medium);
+    filter: brightness(1.05);
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 font-semibold rounded-xl border-2 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-orange-200;
+    border-color: var(--color-orange-300);
+    color: var(--text-accent);
+    background-color: transparent;
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--color-orange-50);
+    border-color: var(--color-orange-400);
+  }
+  
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-6 py-3 font-semibold rounded-xl transition-all duration-300 hover:bg-orange-50 focus:outline-none focus:ring-4 focus:ring-orange-200;
+    color: var(--text-accent);
+  }
+  
+  /* Cards y superficies */
+  .card {
+    @apply rounded-2xl border transition-all duration-300;
+    background-color: var(--bg-primary);
+    border-color: var(--color-orange-100);
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .card:hover {
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-4px);
+  }
+  
+  .card-bubble {
+    @apply rounded-3xl border-2 transition-all duration-300;
+    background: var(--gradient-bubble);
+    border-color: var(--color-orange-200);
+    box-shadow: var(--shadow-bubble);
+  }
+  
+  /* Efectos de texto */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-orange-600) 0%, var(--color-orange-400) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(249, 115, 22, 0.1);
+  }
+  
+  /* Elementos decorativos */
+  .bubble-decoration {
+    position: relative;
+  }
+  
+  .bubble-decoration::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--color-orange-200);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .bubble-decoration::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--color-orange-300);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: float 3s ease-in-out infinite reverse;
+  }
+  
+  /* Utilidades de espaciado */
+  .space-y-section > * + * {
+    margin-top: var(--spacing-section);
+  }
+  
+  .space-y-component > * + * {
+    margin-top: var(--spacing-component);
+  }
+  
+  /* Responsive utilities */
+  .hide-mobile {
+    @apply hidden sm:block;
+  }
+  
+  .show-mobile {
+    @apply block sm:hidden;
+  }
+  
+  /* Focus states mejorados */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-4 focus:ring-orange-200/50;
+  }
+  
+  /* Estados de loading */
+  .loading-shimmer {
+    background: linear-gradient(90deg, var(--color-orange-100) 25%, var(--color-orange-50) 50%, var(--color-orange-100) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+/* Keyframes para animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Animaciones específicas para elementos de bubble tea */
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(100px) scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes teaSwirl {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.bubble-rise {
+  animation: bubbleRise 4s ease-in-out infinite;
+}
+
+.tea-swirl {
+  animation: teaSwirl 20s linear infinite;
+}
+
+/* Responsive design mejorado */
+@media (max-width: 640px) {
+  :root {
+    --spacing-section: 3rem;
+    --spacing-component: 2rem;
+  }
+  
+  .container-custom {
+    @apply px-4;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-section: 2rem;
+    --spacing-component: 1.5rem;
+  }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Modo de alto contraste */
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary-500: #d97706;
+    --color-primary-600: #b45309;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+  }
+  
+  .dark {
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
   }
 }

@@ -2,32 +2,74 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Features from '../components/Features.astro';
+import MenuShowcase from '../components/MenuShowcase.astro';
+import LocationInfo from '../components/LocationInfo.astro';
 import Testimonials from '../components/Testimonials.astro';
-import FAQ from '../components/FAQ.astro';
-import ContactForm from '../components/ContactForm.astro';
+import SocialProof from '../components/SocialProof.astro';
 import Footer from '../components/Footer.astro';
 
-const pageTitle = "Crea tu Página Web Gratis - Sin Costos Ocultos | TuMarca";
-const pageDescription = "Obtén tu página web profesional completamente gratis. Sin letra pequeña, sin tarjeta de crédito. Diseño moderno y optimizado para convertir visitantes en clientes.";
+const pageTitle = "Wo Ai Tea - Bubble Tea Premium | Plaza Soho Las Cascadas";
+const pageDescription = "Descubre la auténtica experiencia de bubble tea premium en El Salvador. Bebidas artesanales, mochis frescos y el mejor ambiente. ¡Better TEAgether! 🧋";
+const pageKeywords = "bubble tea El Salvador, té con leche, mochis artesanales, bebidas asiáticas, Plaza Soho Las Cascadas, PedidosYA, bubble tea premium";
 ---
 
-<BaseLayout titulo={pageTitle} descripcion={pageDescription}>
+<BaseLayout 
+  titulo={pageTitle} 
+  descripcion={pageDescription}
+  palabrasClave={pageKeywords}
+  imagen="/wo-ai-tea-og.jpg"
+>
   <main id="main-content">
+    <!-- Hero Section - Primera impresión -->
     <Hero 
-      titulo="Tu Página Web Profesional, Completamente Gratis"
-      subtitulo="Creamos tu landing page sin costo. Sin letra pequeña, sin pagos ocultos. Solo necesitas tu idea y nosotros hacemos el resto."
-      textoCTA="Obtener Mi Página Gratis"
-      urlCTA="#formulario"
+      titulo="Better TEAgether"
+      subtitulo="La experiencia de bubble tea más auténtica de El Salvador. Ingredientes premium, sabores únicos y el ambiente perfecto para compartir."
+      textoCTA="Ver Nuestro Menú"
+      urlCTA="#menu"
+      textoSecundario="📍 Plaza Soho Las Cascadas • 🚚 Disponible en PedidosYA"
+      mostrarUbicacion={true}
     />
     
+    <!-- Showcase del Menú - Lo que más importa -->
+    <MenuShowcase />
+    
+    <!-- Características Únicas - Diferenciadores -->
     <Features />
     
+    <!-- Información de Ubicación y Pedidos -->
+    <LocationInfo />
+    
+    <!-- Testimonios Sociales -->
     <Testimonials />
     
-    <FAQ />
-    
-    <ContactForm />
+    <!-- Prueba Social - Instagram y Comunidad -->
+    <SocialProof />
   </main>
   
   <Footer />
 </BaseLayout>
+
+<!-- Schema.org para SEO local -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Wo Ai Tea",
+  "description": "Bubble tea premium y mochis artesanales en El Salvador",
+  "url": "https://woaitea.com",
+  "telephone": "+503-XXXX-XXXX",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Plaza Soho Las Cascadas",
+    "addressLocality": "Antiguo Cuscatlán",
+    "addressCountry": "SV"
+  },
+  "servesCuisine": "Asian Beverages",
+  "priceRange": "$$",
+  "openingHours": "Mo-Su 10:00-22:00",
+  "hasMenu": "https://woaitea.com/menu",
+  "acceptsReservations": false,
+  "takeaway": true,
+  "delivery": true
+}
+</script>

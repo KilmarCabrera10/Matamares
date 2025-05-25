@@ -1,85 +1,177 @@
 ---
-// Componente FAQ - Resuelve objeciones y genera confianza
+// FAQ Component - Wo Ai Tea
+// Resuelve dudas sobre bubble tea, mochis y servicios
 export interface Props {
   titulo?: string;
   subtitulo?: string;
   preguntas?: Array<{
     pregunta: string;
     respuesta: string;
+    categoria?: string;
   }>;
 }
 
 const {
   titulo = "Preguntas Frecuentes",
-  subtitulo = "Todo lo que necesitas saber sobre tu página web gratis",
+  subtitulo = "Todo lo que necesitas saber sobre bubble tea, mochis y nuestros servicios",
   preguntas = [
     {
-      pregunta: "¿Es realmente gratis? ¿No hay costos ocultos?",
-      respuesta: "Sí, es 100% gratis. No pedimos tarjeta de crédito, no hay períodos de prueba, ni costos ocultos. Creemos que toda empresa merece tener presencia en línea sin barreras económicas."
+      categoria: "Bubble Tea",
+      pregunta: "¿Qué es exactamente el bubble tea?",
+      respuesta: "El bubble tea es una bebida taiwanesa que combina té (negro, verde, oolong o frutal) con leche o frutas, y se caracteriza por las famosas 'perlas' de tapioca que se mastican. En Wo Ai Tea usamos ingredientes premium importados directamente de Taiwán para garantizar la autenticidad del sabor."
     },
     {
-      pregunta: "¿Qué incluye la página web gratis?",
-      respuesta: "Incluye diseño profesional responsive, hosting seguro, certificado SSL, formulario de contacto, integración con redes sociales, optimización SEO básica y hasta 5 secciones personalizadas."
+      categoria: "Bubble Tea", 
+      pregunta: "¿Las perlas de tapioca son seguras? ¿De qué están hechas?",
+      respuesta: "¡Absolutamente seguras! Nuestras perlas están hechas de almidón de tapioca 100% natural, extraído de la raíz de yuca. Las cocinamos frescas cada día siguiendo técnicas tradicionales taiwanesas. Son libres de gluten y conservantes artificiales."
     },
     {
-      pregunta: "¿Cuánto tiempo tarda en estar lista?",
-      respuesta: "Tu página estará lista en 24-48 horas hábiles después de enviarnos la información. Te enviaremos un enlace de vista previa antes de publicarla."
+      categoria: "Menú",
+      pregunta: "¿Puedo personalizar mi bebida?",
+      respuesta: "¡Por supuesto! Puedes elegir el nivel de dulzor (0%, 25%, 50%, 75%, 100%), cantidad de hielo, tipo de leche (regular, de almendras, de coco), y agregar toppings como perlas de tapioca, popping boba, gelatina de frutas o nuestros mochis artesanales."
     },
     {
-      pregunta: "¿Puedo modificar el contenido después?",
-      respuesta: "¡Por supuesto! Te damos acceso a un panel simple donde puedes actualizar textos, imágenes y información de contacto. También ofrecemos soporte gratuito por 30 días."
+      categoria: "Mochis",
+      pregunta: "¿Qué hace especiales a sus mochis?",
+      respuesta: "Nuestros mochis son 100% artesanales, hechos diariamente con técnicas japonesas tradicionales. Usamos harina de arroz glutinoso premium y rellenos naturales como matcha auténtico, taro fresco, y frutas de temporada. Cada mochi es una pequeña obra de arte comestible."
     },
     {
-      pregunta: "¿Necesito conocimientos técnicos?",
-      respuesta: "No necesitas saber nada de programación o diseño. Nosotros nos encargamos de todo el proceso técnico. Solo necesitas decirnos qué quieres comunicar."
+      categoria: "Ingredientes",
+      pregunta: "¿Tienen opciones para personas con restricciones alimentarias?",
+      respuesta: "Sí, tenemos múltiples opciones: bebidas sin lactosa (leches vegetales), sin azúcar (endulzantes naturales), sin gluten (perlas de agar), y opciones veganas. Siempre pregunta a nuestro personal sobre ingredientes específicos si tienes alergias."
     },
     {
-      pregunta: "¿Cómo se mantienen ustedes si es gratis?",
-      respuesta: "Ofrecemos servicios premium opcionales como tiendas en línea, sistemas de reservas, y marketing digital. Pero la página básica siempre será gratis, sin obligación de contratar nada más."
+      categoria: "Delivery",
+      pregunta: "¿Hacen delivery? ¿Cómo llega la bebida?",
+      respuesta: "Sí, hacemos delivery a través de PedidosYA en un radio de 10km. Usamos vasos especiales sellados herméticamente y bolsas térmicas para mantener la temperatura perfecta. Las perlas se mantienen en su textura ideal hasta por 2 horas."
+    },
+    {
+      categoria: "Ubicación",
+      pregunta: "¿Dónde están ubicados y cuáles son sus horarios?",
+      respuesta: "Estamos en Plaza Soho Las Cascadas, Local 15, Antiguo Cuscatlán. Abiertos de lunes a jueves 10AM-9PM, viernes y sábados 10AM-10PM, domingos 11AM-8PM. Tenemos WiFi gratuito y un ambiente perfecto para estudiar o trabajar."
+    },
+    {
+      categoria: "Experiencia",
+      pregunta: "¿Es mi primera vez probando bubble tea, qué me recomiendan?",
+      respuesta: "¡Perfecto! Te recomendamos empezar con nuestro 'Classic Milk Tea' con perlas de tapioca al 50% de dulzor. Es el sabor más tradicional y equilibrado. Nuestro personal estará encantado de explicarte cómo disfrutarlo y sugerir tu próximo sabor favorito."
+    },
+    {
+      categoria: "Calidad",
+      pregunta: "¿Cómo garantizan la frescura de sus productos?",
+      respuesta: "Preparamos todo fresco diariamente: las perlas de tapioca se cocinan cada mañana, los tés se preparan en lotes pequeños cada 4 horas, y los mochis se elaboran artesanalmente. Nunca usamos productos de más de 24 horas."
+    },
+    {
+      categoria: "Precios",
+      pregunta: "¿Cuáles son sus precios y formas de pago?",
+      respuesta: "Nuestros bubble teas van desde $3.50 a $6.50, y los mochis desde $1.25 cada uno. Aceptamos efectivo, tarjetas de débito/crédito, transferencias bancarias y pagos móviles. También tenemos combos especiales y descuentos para estudiantes."
     }
   ]
 } = Astro.props;
+
+// Agrupar preguntas por categoría
+const categorias = [...new Set(preguntas.map(p => p.categoria))];
+const preguntasPorCategoria = categorias.reduce((acc, cat) => {
+  acc[cat] = preguntas.filter(p => p.categoria === cat);
+  return acc;
+}, {});
 ---
 
-<section id="faq" class="py-20 bg-[var(--bg-primary)]">
-  <div class="container-custom">
+<section id="faq" class="py-20 bg-gradient-to-br from-cream-50 via-white to-orange-50 relative overflow-hidden">
+  
+  <!-- Elementos Decorativos de Fondo -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <!-- Burbujas flotantes -->
+    <div class="absolute top-20 left-10 w-6 h-6 bg-orange-200/20 rounded-full bubble-float" style="animation-delay: 0s;"></div>
+    <div class="absolute bottom-32 right-20 w-8 h-8 bg-orange-300/15 rounded-full bubble-float" style="animation-delay: 3s;"></div>
+    <div class="absolute top-1/2 left-1/4 w-4 h-4 bg-orange-400/20 rounded-full bubble-float" style="animation-delay: 6s;"></div>
+    <div class="absolute bottom-20 left-1/3 w-5 h-5 bg-orange-200/25 rounded-full bubble-float" style="animation-delay: 9s;"></div>
+    
+    <!-- Hojas de té decorativas -->
+    <div class="absolute top-40 right-16 text-6xl text-orange-200/10 transform rotate-12">🍃</div>
+    <div class="absolute bottom-40 left-20 text-5xl text-orange-100/15 transform -rotate-45">🍃</div>
+    
+    <!-- Patrón de círculos -->
+    <div class="absolute top-60 right-1/4 w-32 h-32 border border-orange-200/10 rounded-full"></div>
+    <div class="absolute bottom-60 left-1/4 w-24 h-24 border border-orange-100/15 rounded-full"></div>
+  </div>
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    
     <!-- Encabezado -->
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4">
+    <div class="text-center max-w-4xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 text-orange-700 rounded-full text-sm font-medium mb-6">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+        </svg>
+        Resolvemos tus dudas
+      </div>
+      
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6 font-accent">
         {titulo}
       </h2>
-      <p class="text-lg text-[var(--text-secondary)]">
+      <p class="text-xl text-gray-600 leading-relaxed">
         {subtitulo}
       </p>
     </div>
     
+    <!-- Filtros por Categoría -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      <button 
+        class="category-filter active px-6 py-3 bg-orange-500 text-white rounded-full font-medium hover:bg-orange-600 transition-all duration-300 transform hover:scale-105"
+        data-category="all"
+      >
+        Todas las preguntas
+      </button>
+      {categorias.map(categoria => (
+        <button 
+          class="category-filter px-6 py-3 bg-white text-gray-700 border-2 border-orange-200 rounded-full font-medium hover:border-orange-300 hover:bg-orange-50 transition-all duration-300 transform hover:scale-105"
+          data-category={categoria}
+        >
+          {categoria}
+        </button>
+      ))}
+    </div>
+    
     <!-- Acordeón de preguntas -->
-    <div class="max-w-3xl mx-auto space-y-4">
+    <div class="max-w-4xl mx-auto space-y-4">
       {preguntas.map((item, index) => (
         <div 
-          class="faq-item border border-[var(--color-primary-100)]/10 dark:border-[var(--color-primary-100)]/5 rounded-lg overflow-hidden hover:border-[var(--color-primary-200)] dark:hover:border-[var(--color-primary-700)] transition-colors bg-[var(--bg-primary)] dark:bg-[var(--bg-secondary)]"
+          class="faq-item bg-white rounded-2xl shadow-lg border border-orange-100 overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           data-index={index}
+          data-category={item.categoria}
         >
           <!-- Pregunta -->
           <button
-            class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-[var(--bg-secondary)] dark:hover:bg-[var(--bg-primary)] transition-colors"
+            class="faq-trigger w-full px-8 py-6 text-left flex items-center justify-between gap-6 hover:bg-orange-50 transition-all duration-300 group"
             aria-expanded="false"
             aria-controls={`faq-answer-${index}`}
           >
-            <span class="font-semibold text-[var(--text-primary)] dark:text-[var(--text-secondary)] pr-8">
-              {item.pregunta}
-            </span>
-            <svg 
-              class="faq-icon w-5 h-5 text-[var(--color-primary-600)] dark:text-[var(--color-primary-500)] flex-shrink-0 transition-transform duration-200" 
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              />
-            </svg>
+            <div class="flex-1">
+              <!-- Categoría -->
+              <div class="inline-flex items-center gap-2 px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium mb-3">
+                <div class="w-2 h-2 bg-orange-400 rounded-full"></div>
+                {item.categoria}
+              </div>
+              <!-- Pregunta -->
+              <span class="font-semibold text-gray-900 text-lg leading-relaxed group-hover:text-orange-700 transition-colors">
+                {item.pregunta}
+              </span>
+            </div>
+            
+            <!-- Icono -->
+            <div class="flex-shrink-0 w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center group-hover:bg-orange-200 transition-all duration-300">
+              <svg 
+                class="faq-icon w-6 h-6 text-orange-600 transition-transform duration-300" 
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
           </button>
           
           <!-- Respuesta -->
@@ -87,8 +179,8 @@ const {
             id={`faq-answer-${index}`}
             class="faq-content hidden"
           >
-            <div class="px-6 pb-4 text-[var(--text-secondary)] leading-relaxed border-t border-[var(--color-primary-100)]/10 dark:border-[var(--color-primary-100)]/5 pt-4">
-              {item.respuesta}
+            <div class="px-8 pb-6 text-gray-700 leading-relaxed border-t border-orange-100 pt-6 bg-gradient-to-r from-orange-25 to-cream-25">
+              <p class="text-base">{item.respuesta}</p>
             </div>
           </div>
         </div>
@@ -96,36 +188,73 @@ const {
     </div>
     
     <!-- CTA final -->
-    <div class="text-center mt-12">
-      <p class="text-[var(--text-secondary)] mb-6">
-        ¿Tienes más preguntas? Estamos aquí para ayudarte
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a 
-          href="#formulario"
-          class="inline-flex items-center justify-center px-6 py-3 bg-[var(--color-primary-600)] text-white font-semibold rounded-lg hover:bg-[var(--color-primary-700)] transition-colors group"
-        >
-          Solicitar Mi Página Gratis
-        </a>
-        <a 
-          href="mailto:info@tupagina.com"
-          class="inline-flex items-center justify-center px-6 py-3 border-2 border-[var(--color-primary-100)] dark:border-[var(--color-primary-100)] text-[var(--text-primary)] dark:text-[var(--text-secondary)] font-semibold rounded-lg hover:border-[var(--color-primary-200)] dark:hover:border-[var(--color-primary-700)] hover:bg-[var(--bg-secondary)] dark:hover:bg-[var(--bg-primary)] transition-all"
-        >
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          Contactar por Email
-        </a>
+    <div class="text-center mt-16">
+      <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden">
+        <!-- Elementos decorativos -->
+        <div class="absolute top-4 right-4 text-4xl opacity-20">🧋</div>
+        <div class="absolute bottom-4 left-4 text-3xl opacity-20">🍡</div>
+        
+        <div class="relative z-10">
+          <h3 class="text-2xl sm:text-3xl font-bold mb-4 font-accent">
+            ¿Aún tienes dudas?
+          </h3>
+          <p class="text-orange-100 mb-8 text-lg max-w-2xl mx-auto">
+            Nuestro equipo está listo para ayudarte a descubrir tu sabor favorito y vivir la mejor experiencia de bubble tea
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="https://wa.me/50312345678?text=¡Hola! Tengo algunas preguntas sobre Wo Ai Tea 🧋"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center justify-center px-8 py-4 bg-white text-orange-600 font-bold rounded-xl hover:bg-orange-50 transition-all duration-300 transform hover:scale-105 group"
+            >
+              <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+              </svg>
+              Preguntar por WhatsApp
+            </a>
+            
+            <a 
+              href="tel:+50312345678"
+              class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300 transform hover:scale-105 group"
+            >
+              <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+              </svg>
+              Llamar Ahora
+            </a>
+            
+            <a 
+              href="#ubicacion"
+              class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300 transform hover:scale-105 group"
+            >
+              <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+              </svg>
+              Visítanos
+            </a>
+          </div>
+          
+          <!-- Información adicional -->
+          <div class="mt-8 pt-6 border-t border-orange-400/30">
+            <p class="text-orange-100 text-sm">
+              📍 Plaza Soho Las Cascadas, Local 15 • 📞 +503 1234-5678 • 🕒 Lun-Dom: 10AM-9PM
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  // Funcionalidad del acordeón
+  // Funcionalidad del acordeón y filtros
   document.addEventListener('DOMContentLoaded', () => {
     const faqItems = document.querySelectorAll('.faq-item');
+    const categoryFilters = document.querySelectorAll('.category-filter');
     
+    // Funcionalidad del acordeón
     faqItems.forEach(item => {
       const trigger = item.querySelector('.faq-trigger') as HTMLButtonElement;
       const content = item.querySelector('.faq-content') as HTMLElement;
@@ -153,18 +282,56 @@ const {
         icon?.classList.toggle('rotate-180');
       });
     });
+    
+    // Funcionalidad de filtros por categoría
+    categoryFilters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        const category = filter.getAttribute('data-category');
+        
+        // Actualizar estilos de filtros
+        categoryFilters.forEach(f => {
+          f.classList.remove('active', 'bg-orange-500', 'text-white');
+          f.classList.add('bg-white', 'text-gray-700', 'border-2', 'border-orange-200');
+        });
+        
+        filter.classList.add('active', 'bg-orange-500', 'text-white');
+        filter.classList.remove('bg-white', 'text-gray-700', 'border-2', 'border-orange-200');
+        
+        // Filtrar preguntas
+        faqItems.forEach(item => {
+          const itemCategory = item.getAttribute('data-category');
+          
+          if (category === 'all' || itemCategory === category) {
+            item.style.display = 'block';
+            // Animación de entrada
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            }, 100);
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
   });
 </script>
 
 <style>
-  /* Transición suave para el icono */
+  /* Transiciones suaves */
   .faq-icon {
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
   }
   
-  /* Animación de apertura */
+  .faq-item {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Animación de apertura del contenido */
   .faq-content {
-    animation: slideDown 0.2s ease-out;
+    animation: slideDown 0.3s ease-out;
   }
   
   @keyframes slideDown {
@@ -178,7 +345,42 @@ const {
     }
   }
 
+  /* Rotación del icono cuando está abierto */
   button[aria-expanded="true"] .faq-icon {
     transform: rotate(180deg);
+  }
+  
+  /* Animación de burbujas flotantes */
+  .bubble-float {
+    animation: bubbleFloat 8s ease-in-out infinite;
+  }
+  
+  @keyframes bubbleFloat {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+      opacity: 0.3;
+    }
+    25% {
+      transform: translateY(-20px) rotate(90deg);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateY(-40px) rotate(180deg);
+      opacity: 0.8;
+    }
+    75% {
+      transform: translateY(-20px) rotate(270deg);
+      opacity: 0.6;
+    }
+  }
+  
+  /* Hover effects para los filtros */
+  .category-filter {
+    transition: all 0.3s ease;
+  }
+  
+  .category-filter:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
   }
 </style>

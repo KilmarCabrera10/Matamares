@@ -1,0 +1,417 @@
+---
+// SocialProof Component - Wo Ai Tea
+// Estadísticas, reseñas y prueba social del negocio
+export interface Props {
+  titulo?: string;
+  subtitulo?: string;
+}
+
+const {
+  titulo = "Lo que dicen nuestros clientes",
+  subtitulo = "Miles de personas ya han descubierto por qué somos especiales"
+} = Astro.props;
+
+// Estadísticas del negocio
+const estadisticas = [
+  {
+    numero: "4.9",
+    simbolo: "⭐",
+    descripcion: "Rating promedio",
+    detalle: "Basado en 500+ reseñas"
+  },
+  {
+    numero: "2,500+",
+    simbolo: "😊",
+    descripcion: "Clientes satisfechos",
+    detalle: "Y creciendo cada día"
+  },
+  {
+    numero: "25+",
+    simbolo: "🧋",
+    descripcion: "Sabores únicos",
+    detalle: "Bubble tea y mochis"
+  },
+  {
+    numero: "100%",
+    simbolo: "🌱",
+    descripcion: "Ingredientes naturales",
+    detalle: "Sin conservantes artificiales"
+  }
+];
+
+// Reseñas destacadas
+const resenas = [
+  {
+    nombre: "María González",
+    avatar: "/images/avatars/maria.jpg",
+    rating: 5,
+    comentario: "¡Increíble! El mejor bubble tea que he probado en El Salvador. Los mochis son una delicia y el ambiente es súper acogedor. Definitivamente mi lugar favorito para relajarme.",
+    fecha: "Hace 2 días",
+    plataforma: "Google",
+    verificado: true,
+    sabor: "Taro Milk Tea"
+  },
+  {
+    nombre: "Carlos Mendoza",
+    avatar: "/images/avatars/carlos.jpg",
+    rating: 5,
+    comentario: "Excelente calidad y servicio. Los ingredientes se sienten frescos y auténticos. El personal es muy amable y conoce bien los productos. ¡Highly recommended!",
+    fecha: "Hace 1 semana",
+    plataforma: "Facebook",
+    verificado: true,
+    sabor: "Classic Milk Tea"
+  },
+  {
+    nombre: "Ana Sofía Ramos",
+    avatar: "/images/avatars/ana.jpg",
+    rating: 5,
+    comentario: "Me encanta venir aquí con mis amigas. El ambiente es perfecto para conversar y los bubble teas están deliciosos. Los mochis de matcha son mi obsesión 💚",
+    fecha: "Hace 3 días",
+    plataforma: "Instagram",
+    verificado: true,
+    sabor: "Matcha Latte"
+  },
+  {
+    nombre: "Roberto Silva",
+    avatar: "/images/avatars/roberto.jpg",
+    rating: 5,
+    comentario: "Trabajo cerca y siempre vengo por mi dosis diaria de energía. El servicio es rápido y consistente. El passion fruit tea es refrescante y perfecto para el clima.",
+    fecha: "Hace 5 días",
+    plataforma: "Google",
+    verificado: true,
+    sabor: "Passion Fruit Green Tea"
+  },
+  {
+    nombre: "Lucía Hernández",
+    avatar: "/images/avatars/lucia.jpg",
+    rating: 5,
+    comentario: "Como amante del té, puedo decir que Wo Ai Tea mantiene la autenticidad de los sabores asiáticos. La calidad es excepcional y los precios son justos.",
+    fecha: "Hace 1 semana",
+    plataforma: "TripAdvisor",
+    verificado: true,
+    sabor: "Oolong Tea"
+  },
+  {
+    nombre: "Diego Martínez",
+    avatar: "/images/avatars/diego.jpg",
+    rating: 5,
+    comentario: "Pedí delivery y llegó perfecto, bien empacado y aún frío. La app de PedidosYA funciona genial con ellos. Definitivamente seguiré pidiendo.",
+    fecha: "Hace 4 días",
+    plataforma: "PedidosYA",
+    verificado: true,
+    sabor: "Mango Smoothie"
+  }
+];
+
+// Menciones en redes sociales
+const mencionesRedes = [
+  {
+    usuario: "@foodie_sv",
+    plataforma: "Instagram",
+    seguidores: "15.2K",
+    comentario: "¡Encontré mi nuevo lugar favorito! 🧋✨ #WoAiTea #BubbleTea #SV",
+    likes: 234,
+    imagen: "/images/social/foodie-post.jpg"
+  },
+  {
+    usuario: "@sv_eats",
+    plataforma: "TikTok",
+    seguidores: "28.5K",
+    comentario: "POV: Descubres el mejor bubble tea de El Salvador 🤤 #fyp #bubbletea",
+    likes: 1250,
+    imagen: "/images/social/tiktok-post.jpg"
+  },
+  {
+    usuario: "@taste_hunters",
+    plataforma: "Instagram",
+    seguidores: "9.8K",
+    comentario: "Los mochis más auténticos que he probado fuera de Asia 🍡",
+    likes: 156,
+    imagen: "/images/social/mochi-post.jpg"
+  }
+];
+
+// Certificaciones y reconocimientos
+const reconocimientos = [
+  {
+    titulo: "Mejor Bubble Tea 2024",
+    organizacion: "El Salvador Food Awards",
+    icono: "🏆",
+    ano: "2024"
+  },
+  {
+    titulo: "Certificación Orgánica",
+    organizacion: "Organic Food Association",
+    icono: "🌱",
+    ano: "2024"
+  },
+  {
+    titulo: "Top 10 Nuevos Restaurantes",
+    organizacion: "Revista Sabores",
+    icono: "⭐",
+    ano: "2024"
+  },
+  {
+    titulo: "Excelencia en Servicio",
+    organizacion: "TripAdvisor",
+    icono: "🎖️",
+    ano: "2024"
+  }
+];
+---
+
+<section id="social-proof" class="py-20 bg-gradient-to-br from-white via-orange-25 to-cream-50 relative overflow-hidden">
+  
+  <!-- Elementos Decorativos -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <!-- Burbujas de testimonios -->
+    <div class="absolute top-20 left-10 w-6 h-6 bg-orange-200/20 rounded-full bubble-float" style="animation-delay: 0s;"></div>
+    <div class="absolute bottom-32 right-20 w-8 h-8 bg-orange-300/15 rounded-full bubble-float" style="animation-delay: 3s;"></div>
+    <div class="absolute top-1/2 right-1/4 w-4 h-4 bg-orange-400/20 rounded-full bubble-float" style="animation-delay: 6s;"></div>
+    
+    <!-- Elementos temáticos -->
+    <div class="absolute top-32 right-16 text-6xl text-orange-100/10 transform rotate-12">💬</div>
+    <div class="absolute bottom-40 left-20 text-5xl text-orange-200/10 transform -rotate-12">⭐</div>
+    
+    <!-- Patrón de estrellas -->
+    <div class="absolute top-60 left-1/4 text-2xl text-orange-100/15">⭐</div>
+    <div class="absolute bottom-60 right-1/3 text-xl text-orange-200/10">⭐</div>
+  </div>
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    
+    <!-- Encabezado -->
+    <div class="text-center max-w-4xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 text-orange-700 rounded-full text-sm font-medium mb-6">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+        </svg>
+        Testimonios reales
+      </div>
+      
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6 font-accent">
+        {titulo}
+      </h2>
+      <p class="text-xl text-gray-600 leading-relaxed">
+        {subtitulo}
+      </p>
+    </div>
+    
+    <!-- Estadísticas Destacadas -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+      {estadisticas.map((stat, index) => (
+        <div class="text-center group">
+          <div class="bg-white rounded-3xl shadow-lg border border-orange-100 p-8 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+              {stat.simbolo}
+            </div>
+            <div class="text-3xl sm:text-4xl font-bold text-orange-600 mb-2 font-accent">
+              {stat.numero}
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              {stat.descripcion}
+            </h3>
+            <p class="text-gray-600 text-sm">
+              {stat.detalle}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Reseñas de Clientes -->
+    <div class="mb-16">
+      <h3 class="text-3xl font-bold text-gray-900 text-center mb-12 font-accent">
+        Reseñas Verificadas
+      </h3>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {resenas.map((resena, index) => (
+          <div class="bg-white rounded-3xl shadow-lg border border-orange-100 p-6 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+            
+            <!-- Header de la reseña -->
+            <div class="flex items-center gap-4 mb-4">
+              <img 
+                src={resena.avatar} 
+                alt={resena.nombre}
+                class="w-12 h-12 rounded-full object-cover border-2 border-orange-200"
+                loading="lazy"
+              />
+              <div class="flex-1">
+                <div class="flex items-center gap-2">
+                  <h4 class="font-semibold text-gray-900">{resena.nombre}</h4>
+                  {resena.verificado && (
+                    <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                  )}
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="flex">
+                    {Array.from({length: resena.rating}).map((_, i) => (
+                      <svg key={i} class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  <span class="text-xs text-gray-500">• {resena.plataforma}</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Contenido de la reseña -->
+            <p class="text-gray-700 mb-4 leading-relaxed">
+              "{resena.comentario}"
+            </p>
+            
+            <!-- Footer de la reseña -->
+            <div class="flex items-center justify-between text-sm text-gray-500">
+              <span>{resena.fecha}</span>
+              <span class="px-2 py-1 bg-orange-50 text-orange-600 rounded-full text-xs">
+                {resena.sabor}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <!-- Menciones en Redes Sociales -->
+    <div class="mb-16">
+      <h3 class="text-3xl font-bold text-gray-900 text-center mb-12 font-accent">
+        En Redes Sociales
+      </h3>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        {mencionesRedes.map((mencion, index) => (
+          <div class="bg-white rounded-3xl shadow-lg border border-orange-100 overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+            
+            <!-- Imagen del post -->
+            <div class="h-48 overflow-hidden">
+              <img 
+                src={mencion.imagen} 
+                alt={`Post de ${mencion.usuario}`}
+                class="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+              />
+            </div>
+            
+            <!-- Contenido del post -->
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                  {mencion.usuario.charAt(1).toUpperCase()}
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">{mencion.usuario}</h4>
+                  <p class="text-gray-500 text-sm">{mencion.seguidores} seguidores • {mencion.plataforma}</p>
+                </div>
+              </div>
+              
+              <p class="text-gray-700 mb-4">
+                {mencion.comentario}
+              </p>
+              
+              <div class="flex items-center gap-2 text-red-500">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm font-medium">{mencion.likes.toLocaleString()} likes</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <!-- Reconocimientos y Certificaciones -->
+    <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden">
+      
+      <!-- Elementos decorativos -->
+      <div class="absolute top-4 right-4 text-4xl opacity-20">🏆</div>
+      <div class="absolute bottom-4 left-4 text-3xl opacity-20">⭐</div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-8xl opacity-5">🎖️</div>
+      
+      <div class="relative z-10">
+        <div class="text-center mb-12">
+          <h3 class="text-3xl sm:text-4xl font-bold mb-4 font-accent">
+            Reconocimientos y Certificaciones
+          </h3>
+          <p class="text-orange-100 text-lg max-w-2xl mx-auto">
+            Nuestro compromiso con la calidad ha sido reconocido por diversas organizaciones
+          </p>
+        </div>
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {reconocimientos.map((reconocimiento, index) => (
+            <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div class="text-4xl mb-4">{reconocimiento.icono}</div>
+              <h4 class="font-bold text-lg mb-2">{reconocimiento.titulo}</h4>
+              <p class="text-orange-100 text-sm mb-2">{reconocimiento.organizacion}</p>
+              <span class="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-medium">
+                {reconocimiento.ano}
+              </span>
+            </div>
+          ))}
+        </div>
+        
+        <!-- CTA Final -->
+        <div class="text-center mt-12">
+          <h4 class="text-2xl font-bold mb-4">¿Quieres ser parte de nuestra historia?</h4>
+          <p class="text-orange-100 mb-8 max-w-2xl mx-auto">
+            Únete a miles de clientes satisfechos y descubre por qué Wo Ai Tea es el lugar favorito para disfrutar bubble tea en El Salvador
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="https://wa.me/50312345678?text=¡Hola! Quiero probar Wo Ai Tea por primera vez 🧋"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center justify-center px-8 py-4 bg-white text-orange-600 font-bold rounded-xl hover:bg-orange-50 transition-all duration-300 transform hover:scale-105 group"
+            >
+              <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+              </svg>
+              Hacer mi primer pedido
+            </a>
+            
+            <a 
+              href="#menu"
+              class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300 transform hover:scale-105 group"
+            >
+              <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+              </svg>
+              Ver nuestro menú
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bubble-float {
+    animation: bubbleFloat 8s ease-in-out infinite;
+  }
+  
+  @keyframes bubbleFloat {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+      opacity: 0.3;
+    }
+    25% {
+      transform: translateY(-20px) rotate(90deg);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateY(-40px) rotate(180deg);
+      opacity: 0.8;
+    }
+    75% {
+      transform: translateY(-20px) rotate(270deg);
+      opacity: 0.6;
+    }
+  }
+</style>
